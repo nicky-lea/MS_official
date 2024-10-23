@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css"> <!-- Asegúrate de que la ruta sea correcta -->
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" alt="Logo" class="logo"> <!-- Cambia el nombre del logo -->
+    </div>
+</header>
+<main>
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form action="/login" method="POST" class="form">
+            <input type="email" id="email" name="email" placeholder="Email" autocomplete="off" required>
+            <input type="password" id="password" name="password" autocomplete="off" placeholder="Contraseña" required>
+
+            <button type="submit" class="btn-primary">Iniciar Sesión</button>
+        </form>
+        <p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
+        <p>Volver al inicio <a href="/"> Home </a></p>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,116 @@
+* {
+    background-color: #F7EFE5;
+}
+
+body {
+    font-family: 'Merriweather', serif !important;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    color: #674188;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    background-color: #F7EFE5;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #674188;
+    border-radius: 10px;
+    background-color: #E2BFD9; /* Cambia el fondo del formulario */
+}
+
+h2 {
+    background-color: #E2BFD9;
+    text-align: center;
+    color: #674188;
+}
+
+.form{
+    background-color: #E2BFD9;
+}
+
+
+input {
+    
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #eadff3;
+    border-radius: 5px;
+    color: #674188;
+}
+
+.btn-primary {
+    background-color: #674188;
+    color: #F7EFE5;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #5a3672;
+}
+
+p{
+    background-color: #E2BFD9;
+}
+
+a {
+    background-color: #E2BFD9;
+    text-decoration: none;
+    color: #674188;
+    text-align: center;
+}
+
+a:hover {
+    color: #5a3672; /* Color al pasar el ratón */
+}
+::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra */
+}
+
+::-webkit-scrollbar-track {
+  background: #F7EFE5; /* Color de fondo de la barra */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #674188; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin; /* Estilo del scrollbar */
+  scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+}
+
+/* Para IE y Edge */
+body {
+  -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+}

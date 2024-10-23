@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="../../css/index_usuario.css">
+
+  <nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="menu">
+      <li><a href="#about">Nosotros</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="user_subpages/contacto.html">Contacto</a></li>
+    </ul>
+    <ul class="buttons">
+      <li class="car">
+        <a href="#" data-bs-toggle="modal" data-bs-target="#carritoModal">
+          <img src="../img/shopping-store.png" alt="Carrito de Compras">
+        </a>
+      </li>
+      <li class="perfil" id="perfil">
+        <a href="#"><img src="../img/user_logo.png" alt="Perfil de Usuario"></a>
+        <div class="perfil-dropdown" id="perfilDropdown">
+          <a href="editar_informacion.html">Editar Información</a>
+          <a href="ver_pedidos.html">Ver Pedidos</a>
+          <a href="index_nosesion.html">Cerrar Sesión</a>
+        </div>
+      </li>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm"> <!-- Cambiado a modal-sm para tamaño pequeño -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="carritoModalLabel">Carrito de Compras</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Contenido del Carrito -->
+          <p>Aquí se mostrarán los productos agregados al carrito.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Proceder al Pago</button>
+        </div>
+      </div>
+    </div>
+  </div>

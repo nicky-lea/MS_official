@@ -1,0 +1,119 @@
+:root {
+    --primary-color: #674188;
+    --secondary-color: #F7EFE5;
+    --accent-color: #e0c0d8;
+    --font-family: 'Lora', serif;
+}
+
+#contacto {
+    display: flex;
+    padding: 20px;
+}
+
+#contacto img {
+    width: 50%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#contacto .info {
+    width: 50%;
+    padding: 20px;
+}
+
+#contacto h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+#contacto p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#contacto .buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#contacto .btn {
+    background-color: #e0c0d8;
+    color: #674188;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+#contacto .btn-primary:hover {
+    background-color: #d3b3ca;
+    color: #674188;
+}
+
+#contacto a{
+    text-decoration: none;
+    color: var(--primary-color);
+    background-color: #E2BFD9;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.footer-text h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.footer-text p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    padding-top: 10px;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+}
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #F7EFE5; /* Color de fondo de la barra */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #674188; /* Color de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+  }
+  
+  /* Para Firefox */
+  * {
+    scrollbar-width: thin; /* Estilo del scrollbar */
+    scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+  }
+  
+  /* Para IE y Edge */
+  body {
+    -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+  }

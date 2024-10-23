@@ -1,0 +1,177 @@
+header {
+    color: #674188;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    position: relative;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .logo {
+    height: 80px; 
+    width: auto;
+  }
+
+  nav {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    color: #674188;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    color: #333;
+  }
+
+  .menu {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+
+  .menu li {
+    margin-right: 20px;
+  }
+
+  nav a {
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    color: #674188;
+  }
+
+  nav a:hover {
+    color: #E2BFD9;
+  }
+
+  .buttons {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .buttons li {
+    margin-left: 10px;
+    background-color: #8e90cf00;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    background-color: #7939d300;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+
+  .menu,
+  .buttons {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .menu.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #f0f4ff00;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    z-index: 0;
+  }
+
+  .buttons.active {
+    display: flex;
+  }
+
+  .menu li,
+  .buttons li {
+    margin: 10px 0;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .logo-container {
+      margin-bottom: 15px;
+    }
+}
+@media (max-width: 480px) {
+    header h1 {
+      font-size: 18px;
+    }
+
+    .menu-toggle {
+      font-size: 16px;
+      justify-items: right;
+    }
+    .info_about {
+      font-size: 16px; 
+    }
+
+    .image_about img {
+      max-height: 300px; 
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #F7EFE5; /* Color de fondo de la barra */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #674188; /* Color de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+  }
+  
+  /* Para Firefox */
+  * {
+    scrollbar-width: thin; /* Estilo del scrollbar */
+    scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+  }
+  
+  /* Para IE y Edge */
+  body {
+    -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+  }

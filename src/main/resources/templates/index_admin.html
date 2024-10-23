@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - M&S</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/index_admin.css">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <script src="js/menu_toggle.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../img/logo.png" class="logo">
+        </div>
+        <nav>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="menu">
+                <li><a href="admin_dashboard.html">Dashboard</a></li>
+                <li><a href="admin_users.html">Usuarios</a></li>
+                <li><a href="admin_orders.html">Pedidos</a></li>
+                <li><a href="admin_products.html">Productos</a></li>
+                <li><a href="admin_reports.html">Reportes</a></li>
+            </ul>
+            <ul class="buttons">
+                <li><a href="index_nosesion.html">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="admin-dashboard">
+        <h1>Bienvenido al Panel de Administración</h1>
+        <div class="admin-cards">
+            <div class="card">
+                <h2>Usuarios</h2>
+                <p>Gestiona los usuarios registrados en la plataforma.</p>
+                <a href="admin_users.html" class="btn btn-primary">Gestionar Usuarios</a>
+            </div>
+            <div class="card">
+                <h2>Pedidos</h2>
+                <p>Revisa y gestiona los pedidos realizados.</p>
+                <a href="admin_orders.html" class="btn btn-primary">Gestionar Pedidos</a>
+            </div>
+            <div class="card">
+                <h2>Productos</h2>
+                <p>Añade, edita o elimina productos de la tienda.</p>
+                <a href="admin_products.html" class="btn btn-primary">Gestionar Productos</a>
+            </div>
+            <div class="card">
+                <h2>Reportes</h2>
+                <p>Genera reportes de ventas y actividades.</p>
+                <a href="admin_reports.html" class="btn btn-primary">Generar Reportes</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

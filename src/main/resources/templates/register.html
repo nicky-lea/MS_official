@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/login.css"> <!-- Asegúrate de que la ruta sea correcta -->
+    <title>Registro</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="../img/logo.png" alt="Logo" class="logo"> <!-- Cambia el nombre del logo -->
+        </div>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Registro</h2>
+            <form action="/register" method="POST" class="form">
+                <input type="text" id="name" name="name" autocomplete="off" placeholder="Nombre" required>
+
+                <input type="email" id="email" name="email" autocomplete="off" placeholder="Email" required>
+
+                <input type="password" id="password" name="password"  autocomplete="off" placeholder="Contraseña" required>
+
+                <input type="text" id="phone" name="phone" autocomplete="off" placeholder="Teléfono">
+
+                <input type="text" id="address" name="address" autocomplete="off" placeholder="Dirección">
+
+                <button type="submit" class="btn-primary">Registrar</button>
+            </form>
+            <p>¿Ya tienes una cuenta? <a href="/iniciar">Inicia sesión</a></p>
+            <p>Volver al inicio <a href="/"> Home </a></p>
+        </div>
+    </main>
+</body>
+</html>

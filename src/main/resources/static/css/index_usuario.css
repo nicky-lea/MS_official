@@ -1,0 +1,478 @@
+* {
+  background-color: #F7EFE5;
+}
+
+body {
+  font-family: 'Merriweather', serif !important;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  color: #674188;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  position: relative;
+  background-color: #F7EFE5;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  background-color: #7939d300;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.menu, .buttons {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu.active, .buttons.active {
+  display: flex;
+}
+
+.menu li, .buttons li {
+  width: auto;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--primary-color);
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+nav .menu a:hover {
+  background-color: #E2BFD9;
+  border-radius: 5p
+}
+
+  .buttons {
+  display: flex;
+  gap: 5px; /* Reduce la distancia entre los botones */
+}
+
+.car img, .perfil img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Estilos para el modal del carrito */
+.modal-dialog {
+  max-width: 600px;
+  margin: 0 auto; /* Centra horizontalmente */
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - 1rem); /* Asegura que ocupe toda la pantalla */
+}
+
+.modal-content {
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+}
+
+.modal-backdrop.show {
+  opacity: 0.5 !important; /* Hace transparente el fondo detrás del modal */
+  background-color: rgba(0, 0, 0, 0.5) !important; /* Fondo negro con transparencia */
+}
+
+.modal-header, .modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--primary-color);
+  background-color: #F7EFE5 !important;
+}
+
+.btn-primary, .btn-secondary {
+  border: none !important; /* Quita los bordes de los botones */
+  color: var(--primary-color);
+  border-radius: 10px;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #e0c0d8 !important; /* Color del botón principal */
+  color: #674188 !important;
+}
+
+.btn-primary:hover {
+  background-color: #d3b3ca !important; /* Color al pasar el ratón */
+}
+
+.btn-secondary {
+  background-color: #674188 !important; /* Color del botón secundario */
+  color: #F7EFE5;
+}
+
+.btn-secondary:hover {
+  background-color: #5a3672 !important; /* Color al pasar el ratón */
+}
+
+.perfil {
+  position: relative;
+}
+
+.perfil-dropdown {
+  margin-top: 5px;
+  display: none; 
+  position: absolute;
+  background-color: #F7EFE5;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  right: 0;
+  z-index: 1000;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.perfil-dropdown.active {
+  display: block;
+}
+
+.perfil-dropdown a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.perfil-dropdown a:hover {
+  background-color: #E2BFD9;
+}
+
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  color: #674188;
+  background-color: transparent;
+  padding: 5px 10px;
+}
+
+nav .menu a:hover {
+  /* color: #E2BFD9; */
+  background-color: #E2BFD9;
+  border-radius: 5px;
+}
+
+.buttons li {
+  background-color: #8e90cf00;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.carousel {
+  background-color: #F7EFE5;
+}
+
+.carousel-inner {
+  overflow: hidden;
+}
+
+.carousel-item img {
+  max-height: 550px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: transparent;
+  color: #8e90cf00;
+  border-radius: 50%;
+  width: 60px;
+  height: 40px;
+}
+
+#about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+}
+
+.info_about {
+  text-align: justify;
+  width: 50%;
+  padding: 25px;
+}
+
+.info_about h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.info_about p {
+  font-size: 18px;
+}
+
+.image_about {
+  width: 50%;
+  padding: 25px;
+}
+
+.image_about img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+footer {
+  color: rgb(1, 17, 64);
+  padding: 40px 0;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.footer-text h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.footer-text p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo-container {
+    margin-bottom: 15px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    background-color: #7939d300;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    justify-content: center;
+  }
+
+  .menu, .buttons {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .menu.active, .buttons.active {
+    display: flex;
+  }
+
+  .menu li, .buttons li {
+    width: 100%;
+  }
+
+  nav a {
+    display: block;
+    width: 100%;
+  }
+
+  .info_about {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .image_about {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .image_about img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 500px) {
+  #about {
+    flex-direction: column;
+  }
+
+  .image_about {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  .menu-toggle {
+    font-size: 16px;
+    justify-items: center;
+    
+  }
+
+  .info_about {
+    font-size: 16px;
+  }
+
+  .image_about img {
+    max-height: 300px;
+  }
+}
+
+.contacto-container {
+  color: #674188;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.contacto-imagen {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.contacto-imagen img {
+  width: 100%;
+}
+contacto-info a{
+  text-decoration: none;
+}
+#contacto .btn-primary:hover {
+  background-color: #d3b3ca;
+  color: #674188;
+}
+
+.btn-primary a{
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: #E2BFD9;
+}
+::-webkit-scrollbar {
+  width: 12px; /* Ancho de la barra */
+}
+
+::-webkit-scrollbar-track {
+  background: #F7EFE5; /* Color de fondo de la barra */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #674188; /* Color de la barra de desplazamiento */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin; /* Estilo del scrollbar */
+  scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+}
+
+/* Para IE y Edge */
+body {
+  -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+}
