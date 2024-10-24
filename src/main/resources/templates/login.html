@@ -24,6 +24,10 @@
         <p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
         <p>Volver al inicio <a href="/"> Home </a></p>
     </div>
+    <div>
+        <p th:if="${param.error}">Nombre de usuario o contraseña incorrectos.</p>
+        <p th:if="${param.logout}">Has cerrado sesión correctamente.</p>
+    </div>
 </main>
 </body>
 </html>

@@ -15,7 +15,8 @@
     <main>
         <div class="form-container">
             <h2>Registro</h2>
-            <form action="/register" method="POST" class="form">
+            <form th:action="@{/register}" method="POST" class="form">
+                <input type="text" id="cc" name="cc" autocomplete="off" placeholder="Documento de identidad" required>
                 <input type="text" id="name" name="name" autocomplete="off" placeholder="Nombre" required>
 
                 <input type="email" id="email" name="email" autocomplete="off" placeholder="Email" required>

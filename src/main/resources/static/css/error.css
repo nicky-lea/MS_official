@@ -1,0 +1,60 @@
+* {
+    background-color: #F7EFE5;
+}
+
+body {
+    font-family: 'Merriweather', serif !important;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centra verticalmente */
+    text-align: center;
+}
+
+h1 {
+    color: #674188;
+    font-size: 48px; /* Tamaño del título */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+p {
+    font-size: 18px; /* Tamaño del texto */
+    color: #333; /* Color del texto */
+    margin-bottom: 40px; /* Espaciado inferior */
+}
+
+.btn {
+    background-color: #e0c0d8;
+    color: #674188;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #d3b3ca;
+}
+
+/* Estilos para el scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #674188; /* Color de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+/* Para Firefox */
+* {
+    scrollbar-width: thin; /* Estilo del scrollbar */
+    scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+}
