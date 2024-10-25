@@ -1,20 +1,11 @@
 package org.edu.usco.pw.ms_official.controller;
 
-import org.edu.usco.pw.ms_official.model.Rol;
-import org.edu.usco.pw.ms_official.model.User;
-import org.edu.usco.pw.ms_official.repository.RolRepository;
-import org.edu.usco.pw.ms_official.repository.UserRepository;
+import org.edu.usco.pw.ms_official.model.UserEntity;
 import org.edu.usco.pw.ms_official.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -39,7 +30,7 @@ public class MainController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserEntity());
         return "register";  // El archivo HTML para la vista de registro
     }
 

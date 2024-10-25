@@ -15,8 +15,8 @@
 <main>
     <div class="form-container">
         <h2>Iniciar Sesión</h2>
-        <form action="/login" method="POST" class="form">
-            <input type="email" id="email" name="email" placeholder="Email" autocomplete="off" required>
+        <form th:action="@{/iniciar}" method="POST" class="form">
+            <input type="email" id="email" name="username" placeholder="Email" autocomplete="off" required>
             <input type="password" id="password" name="password" autocomplete="off" placeholder="Contraseña" required>
 
             <button type="submit" class="btn-primary">Iniciar Sesión</button>
