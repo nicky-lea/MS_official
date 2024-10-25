@@ -31,7 +31,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/register","/", "/iniciar", "/css/**", "/js/**", "/img/**").permitAll() // Permitir acceso a estas rutas sin autenticación
-                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación
                 )
                 .formLogin(form -> form

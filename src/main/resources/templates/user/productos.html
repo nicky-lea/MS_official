@@ -10,32 +10,9 @@
     <header>
         <h1>Productos</h1>
     </header>
-    <main>
-        <div class="product-container">
-            <!-- Mostrar productos desde la base de datos -->
-            <div th:each="producto : ${productos}" class="product-card">
-                <img th:src="${producto.imageUrl}" alt="${producto.name}">
-                <h3 th:text="${producto.name}"></h3>
-                <p th:text="${producto.description}"></p>
-                <p>Precio: $<span th:text="${producto.price}"></span></p>
-                <button onclick="addToCart(${producto.id})">Añadir al carrito</button>
-                <button onclick="buyNow(${producto.id})">Comprar</button>
-            </div>
-        </div>
-    </main>
+    <h1>Lista de Productos</h1>
     <footer>
         <p>&copy; 2024 Tu Tienda</p>
     </footer>
-    <script>
-        function addToCart(productId) {
-            console.log(`Producto ${productId} añadido al carrito`);
-            // Lógica para añadir al carrito
-        }
-
-        function buyNow(productId) {
-            console.log(`Comprando producto ${productId}`);
-            // Lógica para comprar
-        }
-    </script>
 </body>
 </html>
