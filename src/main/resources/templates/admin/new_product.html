@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="../../css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <title>Crear Producto</title>
+</head>
+<body>
+<header>
+<div class="logo-container">
+    <img src="../../img/logo.png" alt="Logo" class="logo"> <!-- Cambia el nombre del logo -->
+</div>
+</header>
+<main>
+    <div class="form-container">
+<h2>Crear Nuevo Producto</h2>
+<form th:action="@{/admin/products}" th:object="${product}" method="POST" enctype="multipart/form-data" class="form">
+
+        <input type="text" id="name" th:field="*{name}" required placeholder="Nombre" />
+        <input type="number" id="price" th:field="*{price}" step="0.01" min="0" required placeholder="Precio" />
+        <textarea id="description" th:field="*{description}" required placeholder="Descripcion"></textarea>
+        <input type="number" id="stock" th:field="*{stock}" min="0" required placeholder="Cantidad" />
+        <input type="file" id="file" name="file" accept="image/*" required />
+    <div class="button-container">
+        <button type="submit" class="btn-primary" >Guardar</button>
+        <br>
+        <button type="reset" class="btn-primary" >Limpiar</button>
+        <br>
+        <a th:href="@{/admin/products}" class="btn-primary">Cancelar</a>
+    </div>
+</form>
+    </div>
+</main>
+</body>
+</html>

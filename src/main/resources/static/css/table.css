@@ -1,0 +1,320 @@
+:root {
+    --primary-color: #674188;
+    --secondary-color: #F7EFE5;
+    --accent-color: #e0c0d8;
+    --font-family: 'Lora', serif;
+}
+
+* {
+    background-color: var(--secondary-color);
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: var(--secondary-color);
+}
+
+h2{
+    text-align: center;
+    color: #674188;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    background-color: #7939d300;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.menu, .buttons {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu.active, .buttons.active {
+    display: flex;
+}
+
+.menu li, .buttons li {
+    width: auto;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+nav .menu a:hover {
+    background-color: #E2BFD9;
+    border-radius: 5px;
+}
+
+#admin-dashboard {
+    padding: 20px;
+}
+
+.admin-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #F7EFE5;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 40px);
+    text-align: center;
+}
+
+.card h2 {
+    color: #674188;
+    font-family: 'Lora', serif;
+}
+
+.card p {
+    font-family: 'Lora', serif;
+    color: #333;
+}
+
+.btn {
+    background-color: #e0c0d8;
+    color: #674188;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #d3b3ca;
+    color: #674188;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: auto;
+    font-size: 15px;
+    text-align: left;
+    background-color: #FFFFFF;
+    border: 1px solid #dddddd;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #dddddd;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #d3b3ca;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .logo-container {
+        margin-bottom: 15px;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    .menu, .buttons {
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        display: none;
+    }
+    .menu.active, .buttons.active {
+        display: flex;
+    }
+    nav a {
+        display: block;
+        width: 100%;
+    }
+    .admin-cards {
+        flex-direction: column;
+    }
+    table, th, td {
+        display: block;
+        width: 100%;
+    }
+    th, td {
+        box-sizing: border-box;
+        width: 100%;
+    }
+    tr {
+        margin-bottom: 10px;
+    }
+    th, td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    th::before, td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra */
+}
+
+::-webkit-scrollbar-track {
+    background: #F7EFE5; /* Color de fondo de la barra */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #674188; /* Color de la barra de desplazamiento */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+}
+
+/* Para Firefox */
+* {
+    scrollbar-width: thin; /* Estilo del scrollbar */
+    scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+}
+
+/* Para IE y Edge */
+body {
+    -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+}
+
+/* Estilo general para los enlaces que actúan como botones */
+.button-link {
+    display: inline-block; /* Para que se comporten como botones */
+    background-color: #6a0dad; /* Color de fondo morado */
+    color: white; /* Color del texto */
+    padding: 10px 15px; /* Espaciado interno */
+    text-align: center; /* Centrar texto */
+    text-decoration: none; /* Quitar subrayado */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Efecto de transición al pasar el mouse */
+    margin: 10px 0; /* Espaciado entre botones */
+}
+
+/* Cambio de color al pasar el mouse */
+.button-link:hover {
+    background-color: #E2BFD9; /* Color de fondo morado más claro al pasar el mouse */
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center; /* Centra el contenedor en la pantalla */
+    padding: 10px;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 500px; /* Ancho máximo del buscador */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total */
+}
+
+.button-search, .button-create {
+    background-color: #6a0dad;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap; /* Evita que el texto en el botón se corte en líneas nuevas */
+}
+
+.button-search:hover, .button-create:hover {
+    background-color: #9b59b6;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .search-input {
+        max-width: 100%; /* El buscador ocupa todo el ancho en pantallas más pequeñas */
+    }
+}
+
+

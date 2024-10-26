@@ -41,7 +41,11 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .permitAll()
+                        .logoutUrl("/logout") // URL de cierre de sesión
+                        .logoutSuccessUrl("/iniciar") // URL a la que redirigir después de cerrar sesión
+                        .invalidateHttpSession(true) // Invalidar sesión
+                        .deleteCookies("JSESSIONID") // Eliminar cookies
+                        .permitAll() // Permitir acceso al cierre de sesión
                 );
 
         return http.build();

@@ -17,14 +17,14 @@
         <nav>
             <button class="menu-toggle" aria-label="Toggle menu">☰</button>
             <ul class="menu">
-                <li><a href="admin_dashboard.html">Dashboard</a></li>
-                <li><a href="admin_users.html">Usuarios</a></li>
-                <li><a href="admin_orders.html">Pedidos</a></li>
-                <li><a href="admin_products.html">Productos</a></li>
-                <li><a href="admin_reports.html">Reportes</a></li>
+                <li><a href="/admin">Dashboard</a></li>
+                <li><a href="/admin/users">Usuarios</a></li>
+                <li><a href="admin/orders">Pedidos</a></li>
+                <li><a href="admin/products">Productos</a></li>
+                <li><a href="admin/reports">Reportes</a></li>
             </ul>
             <ul class="buttons">
-                <li><a href="index_nosesion.html">Cerrar Sesión</a></li>
+                <li><a th:href="@{/logout}">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
@@ -35,7 +35,7 @@
             <div class="card">
                 <h2>Usuarios</h2>
                 <p>Gestiona los usuarios registrados en la plataforma.</p>
-                <a href="admin_users.html" class="btn btn-primary">Gestionar Usuarios</a>
+                <a href="admin/users" class="btn btn-primary">Gestionar Usuarios</a>
             </div>
             <div class="card">
                 <h2>Pedidos</h2>

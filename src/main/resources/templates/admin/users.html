@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org", xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <script src="js/menu_toggle.js"></script>
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" class="logo">
+    </div>
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="menu">
+            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/admin/users">Usuarios</a></li>
+            <li><a href="/admin/orders">Pedidos</a></li>
+            <li><a href="/admin/products">Productos</a></li>
+            <li><a href="/admin/reports">Reportes</a></li>
+        </ul>
+        <ul class="buttons">
+            <li><a th:href="@{/logout}">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+<h2>Lista de Usuarios</h2>
+<table>
+    <thead>
+    <tr>
+        <th>CC</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Fecha de Registro</th>
+        <th>Rol</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="userMap : ${userList}">
+        <td th:text="${userMap.user.cc}"></td>
+        <td th:text="${userMap.user.name}"></td>
+        <td th:text="${userMap.user.email}"></td>
+        <td th:text="${userMap.user.phone}"></td>
+        <td th:text="${userMap.user.address}"></td>
+        <td th:text="${#temporals.format(userMap.user.registrationDate, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${userMap.roles}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

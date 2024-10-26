@@ -5,9 +5,11 @@ import org.edu.usco.pw.ms_official.model.UserEntity;
 import org.edu.usco.pw.ms_official.repository.RolRepository;
 import org.edu.usco.pw.ms_official.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -54,6 +56,19 @@ public class UserService {
         return userRepository.save(user);
 
     }
+
+    public List<UserEntity> getAllUsers() {
+        logger.info("Obteniendo todos los usuarios");
+        return userRepository.findAll();
+    }
+
+    public UserEntity findById(Long id) {
+        logger.info("Buscando usuario con ID: " + id);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+
 }
 
 

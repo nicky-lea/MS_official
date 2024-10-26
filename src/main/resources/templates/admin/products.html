@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <script src="js/menu_toggle.js"></script>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" class="logo">
+    </div>
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="menu">
+            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/admin/users">Usuarios</a></li>
+            <li><a href="/admin/orders">Pedidos</a></li>
+            <li><a href="/admin/products">Productos</a></li>
+            <li><a href="/admin/reports">Reportes</a></li>
+        </ul>
+        <ul class="buttons">
+            <li><a href="/logout">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+<h2>Lista de Productos</h2>
+<div class="search-container">
+    <input type="text" placeholder="Buscar..." class="search-input">
+    <button class="button-search">Buscar</button>
+    <a href="/admin/products/new" class="button-create">Nuevo Producto</a>
+</div>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+    </tr>
+    <th:block th:each="productMap : ${productList}">
+        <tr>
+            <td th:text="${productMap.get('product').id}"></td>
+            <td th:text="${productMap.get('product').name}"></td>
+            <td th:text="${productMap.get('product').price}"></td>
+            <td th:text="${productMap.get('product').description}"></td>
+            <td th:text="${productMap.get('product').stock}"></td>
+            <td>
+                <a th:href="@{/admin/products/edit/{id}(id=${productMap.get('product').id})}" class="button-link">Editar</a>
+                <a th:href="@{/admin/products/delete/{id}(id=${productMap.get('product').id})}" class="button-link">Eliminar</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
