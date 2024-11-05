@@ -30,7 +30,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/register","/", "/iniciar", "/css/**", "/js/**", "/img/**").permitAll() // Permitir acceso a estas rutas sin autenticación
+                        .requestMatchers("/register","/", "/iniciar", "/css/**", "/js/**", "/img/**" , "/no_subpages/**").permitAll() // Permitir acceso a estas rutas sin autenticación
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación
@@ -42,7 +42,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout") // URL de cierre de sesión
-                        .logoutSuccessUrl("/iniciar") // URL a la que redirigir después de cerrar sesión
+                        .logoutSuccessUrl("/") // URL a la que redirigir después de cerrar sesión
                         .invalidateHttpSession(true) // Invalidar sesión
                         .deleteCookies("JSESSIONID") // Eliminar cookies
                         .permitAll() // Permitir acceso al cierre de sesión
@@ -52,36 +52,28 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService);
-        return provider;
-    }
-
-    @Bean
     public AuthenticationSuccessHandler successHandler() {
         return (request, response, authentication) -> {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             String redirectUrl = "/";
 
+            // Imprimir roles para depuración
+            for (GrantedAuthority authority : authorities) {
+                System.out.println("Authority: " + authority.getAuthority());
+            }
+
             for (GrantedAuthority authority : authorities) {
                 if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                    redirectUrl = "/admin";
+                    redirectUrl = "/admin"; // Redirige a la página del administrador
                     break;
-                }else if (authority.getAuthority().equals("ROLE_USER")) {
-                    redirectUrl = "/user";
+                } else if (authority.getAuthority().equals("ROLE_USER")) {
+                    redirectUrl = "/user"; // Redirige a la página del usuario
                     break;
                 }
             }
 
+            System.out.println("Redirecting to: " + redirectUrl);
             response.sendRedirect(redirectUrl);
         };
-
     }
     }

@@ -99,10 +99,31 @@ nav .menu a:hover {
   gap: 5px; /* Reduce la distancia entre los botones */
 }
 
+  .logout-button{
+    background-color: transparent;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .logout-button:hover{
+    background-color: #E2BFD9;
+  }
+
 .car img, .perfil img {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+
+.cart{
+  background-color: transparent;
+  border: none;
 }
 
 /* Estilos para el modal del carrito */

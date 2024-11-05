@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+<head>
+    <title>Mis Pedidos</title>
+</head>
+<body>
+<h2>Mis Pedidos</h2>
+
+<div class="search-container">
+    <input type="text" placeholder="Buscar..." class="search-input">
+    <button class="button-search">Buscar</button>
+    <a href="/user/profile" class="button-link">Volver a mi perfil</a>
+</div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Detalles</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.status}"></td>
+            <td>
+                <ul>
+                    <li th:each="detail : ${order.orderDetails}">
+                        <span th:text="${detail.product.name}">Producto</span> -
+                        <span th:text="${detail.quantity}">Cantidad</span>
+                    </li>
+                </ul>
+            </td>
+            <td>
+                <form th:action="@{/user/orders/received(id=${order.id})}" method="post">
+                    <button type="submit">Recibido</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

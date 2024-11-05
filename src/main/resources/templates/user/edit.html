@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="../../img/logo.png" alt="Logo" class="logo"> <!-- Cambia el nombre del logo -->
+        <br>
+        <h2>Editar Informacion de Usuario</h2>
+    </div>
+</header>
+<div class="form-container">
+    <form th:action="@{/user/edit}" th:object="${user}" method="post" class="form">
+
+        <input type="text" id="name" th:field="*{name}" required>
+
+        <input type="hidden" id="email" th:field="*{email}" readonly>
+
+        <input type="text" id="address" th:field="*{address}">
+
+        <input type="text" id="phone" th:field="*{phone}">
+
+        <div class="button-container">
+            <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+
+</html>

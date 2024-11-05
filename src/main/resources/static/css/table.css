@@ -317,4 +317,24 @@ body {
     }
 }
 
+/* CSS para el botón de ordenación */
+.sort-button {
+    float: right; /* Alinear a la derecha */
+    margin-right: 73px;
+    margin-bottom: 10px; /* Espaciado inferior */
+}
+
+.sort-button select {
+    padding: 5px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde gris claro */
+    background-color: #F7EFE5; /* Fondo claro */
+    cursor: pointer; /* Cambiar el cursor al pasar el ratón */
+    transition: border-color 0.3s; /* Efecto de transición en el borde */
+}
+
+.sort-button select:hover {
+    border-color: #71359c; /* Color del borde al pasar el ratón */
+}
+
 

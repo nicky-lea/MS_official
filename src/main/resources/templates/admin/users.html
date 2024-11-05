@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="../img/logo.png" type="image/png">
-    <script src="js/menu_toggle.js"></script>
+    <script src="/js/menu_toggle.js"></script>
     <title>Lista de Usuarios</title>
 </head>
 <body>
@@ -28,6 +28,19 @@
     </nav>
 </header>
 <h2>Lista de Usuarios</h2>
+<form action="#" th:action="@{/admin/users/search}" method="get" class="search-container">
+    <input type="text" name="search" placeholder="Buscar por CC, nombre o email" class="search-input" />
+    <button type="submit" class="button-search">Buscar</button>
+</form>
+<div class="sort-button">
+    <label for="sort">Ordenar por:</label>
+    <select id="sort" onchange="sortUsers(this.value)">
+        <option value="">Seleccione</option>
+        <option value="cc">CC</option>
+        <option value="name">Nombre</option>
+        <option value="email">Email</option>
+    </select>
+</div>
 <table>
     <thead>
     <tr>
@@ -52,5 +65,11 @@
     </tr>
     </tbody>
 </table>
+<script>
+    function sortUsers(sortBy) {
+        const url = sortBy ? `/admin/users/sort?sortBy=${sortBy}` : '/admin/users';
+        window.location.href = url;
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../img/logo.png" type="image/png">
+<script src="js/menu_toggle.js"></script>
+<head>
+    <title>Pedidos - Administración</title>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" class="logo">
+    </div>
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="menu">
+            <li><a href="/admin">Dashboard</a></li>
+            <li><a href="/admin/users">Usuarios</a></li>
+            <li><a href="/admin/orders">Pedidos</a></li>
+            <li><a href="/admin/products">Productos</a></li>
+            <li><a href="/admin/reports">Reportes</a></li>
+        </ul>
+        <ul class="buttons">
+            <li><a href="/logout">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+</header>
+<h2>Lista de Pedidos</h2>
+
+<form action="#" method="get" class="search-container">
+    <input type="number" name="userCc" placeholder="Buscar por usuario" class="search-input" />
+    <input type="number" name="orderId" placeholder="Buscar por id de pedido" class="search-input" />
+    <button type="submit" class="button-search">Buscar</button>
+</form>
+<form th:action="@{/admin/orders}" method="get" class="search-container">
+    <label for="sort">Ordenar por:</label>
+    <select name="sort" id="sort" class="selectpicker" data-style="btn-primary">
+        <option value="">Seleccionar...</option>
+        <option value="id" th:selected="${sort == 'id'}">ID del Pedido</option>
+        <option value="cc" th:selected="${sort == 'cc'}">CC del Usuario</option>
+    </select>
+    <button type="submit" class="button-search">Ordenar</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Detalles</th>
+        <th>Total</th>
+        <th>Imagen de pago</th>
+        <th>Fecha de pago</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.status}"></td>
+        <td th:text="${order.total != null ? order.total : 'Vacío'}"></td>
+        <td>
+            <img th:src="${order.paymentProof != null ? order.paymentProof : ''}" alt="Imagen de Pago" style="width: 100px;"/>
+        </td>
+        <td th:text="${order.paymentDate != null ? order.paymentDate : 'Vacío'}"></td>
+        <td>
+            <ul>
+                <li th:each="detail : ${order.orderDetails}">
+                    <span th:text="${detail.product.name}">Producto</span> -
+                    <span th:text="${detail.quantity}">Cantidad</span>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Pendiente')}" method="post">
+                <button type="submit" class="button-search">Pendiente</button>
+            </form>
+            <br>
+            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Cancelado')}" method="post">
+                <button type="submit" class="button-search">Cancelado</button>
+            </form>
+            <br>
+            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Reembolsado')}" method="post">
+                <button type="submit" class="button-search">Reembolsado</button>
+            </form>
+            <br>
+            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Enviado')}" method="post">
+                <button type="submit" class="button-search">Enviado</button>
+            </form>
+
+        </td>
+    </tr>
+    <tr th:if="${#lists.isEmpty(orders)}">
+        <td colspan="5">No se encontraron pedidos con los criterios de búsqueda.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+

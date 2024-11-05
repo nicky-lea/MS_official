@@ -6,6 +6,7 @@
     <title>Admin Panel - M&S</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/index_admin.css">
+    <link rel="stylesheet" href="../css/table.css">
     <link rel="icon" href="../img/logo.png" type="image/png">
     <script src="js/menu_toggle.js"></script>
 </head>
@@ -24,7 +25,9 @@
                 <li><a href="admin/reports">Reportes</a></li>
             </ul>
             <ul class="buttons">
-                <li><a th:href="@{/logout}">Cerrar Sesión</a></li>
+                <li><form th:action="@{/logout}" method="post">
+                    <button type="submit" class="button-search">Cerrar sesión</button>
+                </form></li>
             </ul>
         </nav>
     </header>
