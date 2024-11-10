@@ -21,6 +21,12 @@ public class OrderEntity {
     @Column(name = "order_date")
     private LocalDateTime orderDate;
 
+    private String name;
+
+    private String email;
+
+    private String phone;
+
     @Column(name = "shipping_address")
     private String shippingAddress;
 

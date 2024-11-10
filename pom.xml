@@ -102,6 +102,14 @@
             <version>26.0.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.29.8</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

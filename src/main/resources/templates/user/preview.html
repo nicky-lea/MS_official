@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Preview Order</title>
+</head>
+<body>
+<h1>Order Preview</h1>
+
+<div>
+    <h3>Your Cart</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.product.name}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.product.price}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h3>Shipping Information</h3>
+    <form th:action="@{/checkout/placeOrder}" method="post">
+        <input type="hidden" name="userCc" th:value="${user.cc}" />
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:value="${user.name}" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${user.email}" required />
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" th:value="${user.phone}" required />
+
+        <label for="shippingAddress">Shipping Address:</label>
+        <textarea id="shippingAddress" name="shippingAddress" required>${user.shippingAddress}</textarea>
+
+        <button type="submit">Place Order</button>
+    </form>
+</div>
+</body>
+</html>

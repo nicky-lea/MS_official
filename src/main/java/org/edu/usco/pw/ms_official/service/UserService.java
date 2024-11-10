@@ -38,6 +38,15 @@ public class UserService {
     @Autowired
     private OrderRepository orderRepository;
 
+    public UserEntity findByUser(Long userCc) {
+        List<UserEntity> users = userRepository.findByCc(userCc);
+        if (users != null && !users.isEmpty()) {
+            return users.get(0); // Retorna el primer usuario si la lista no está vacía
+        }
+        return null; // Si no se encuentra el usuario
+    }
+
+
     public UserEntity registerUser(Long cc, String name, String email, String password, String phone, String address) {
         // Validar que el email no exista
         if (userRepository.existsByEmail(email)) {
@@ -54,7 +63,7 @@ public class UserService {
         user.setRegistrationDate(LocalDateTime.now());
 
         // Asignar rol por defecto
-        Optional<Rol> defaultRole = roleRepository.findByName("ADMIN");
+        Optional<Rol> defaultRole = roleRepository.findByName("USER");
         Rol userRole = defaultRole.orElseThrow(() -> new RuntimeException("Rol por defecto no encontrado"));
 
         // Asignar el rol a la colección de roles
@@ -77,12 +86,6 @@ public class UserService {
     public List<UserEntity> getAllUsers() {
         logger.info("Obteniendo todos los usuarios");
         return userRepository.findAll();
-    }
-
-    public UserEntity findById(Long id) {
-        logger.info("Buscando usuario con ID: " + id);
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 
     public UserEntity findByEmail(String email) {

@@ -9,6 +9,19 @@
     <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet"/>
     <title>M&S</title>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/67047dff02d78d1a30eddbf5/1i9koobr4';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 </head>
 <body>
     <header>
@@ -20,7 +33,7 @@
             <ul class="menu">
                 <li><a href="/">Inicio</a></li>
                 <li><a href="#about">Nosotros</a></li>
-                <li><a th:href="@{/contact}">Contacto</a></li>
+                <li><a href="/contacto">Contacto</a></li>
             </ul>
             <ul class="buttons">
               <a th:href="@{/iniciar}" class="btn btn-primary">Iniciar Sesion</a>
