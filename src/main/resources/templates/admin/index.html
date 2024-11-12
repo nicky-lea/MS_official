@@ -11,26 +11,26 @@
     <script src="js/menu_toggle.js"></script>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="../img/logo.png" class="logo">
-        </div>
-        <nav>
-            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-            <ul class="menu">
-                <li><a href="/admin">Dashboard</a></li>
-                <li><a href="/admin/users">Usuarios</a></li>
-                <li><a href="admin/orders">Pedidos</a></li>
-                <li><a href="admin/products">Productos</a></li>
-                <li><a href="admin/reports">Reportes</a></li>
-            </ul>
-            <ul class="buttons">
-                <li><form th:action="@{/logout}" method="post">
-                    <button type="submit" class="button-search">Cerrar sesión</button>
-                </form></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" class="logo">
+    </div>
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="menu">
+            <li><a th:href="@{/admin}">Dashboard</a></li>
+            <li><a th:href="@{/admin/users}">Usuarios</a></li>
+            <li><a th:href="@{/admin/orders}">Pedidos</a></li>
+            <li><a th:href="@{/admin/products}">Productos</a></li>
+            <li><a th:href="@{/admin/reports}">Reportes</a></li>
+        </ul>
+        <ul class="buttons">
+            <li><form th:action="@{/logout}" method="post">
+                <button type="submit" class="button-search">Cerrar sesión</button>
+            </form></li>
+        </ul>
+    </nav>
+</header>
     
     <section id="admin-dashboard">
         <h1>Bienvenido al Panel de Administración</h1>

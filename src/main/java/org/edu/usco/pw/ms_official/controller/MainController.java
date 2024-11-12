@@ -13,9 +13,16 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/index")
     public String showIndex() {
         return "index";
+    }
+
+
+
+    @GetMapping("/contacto")
+    public String showNoPages() {
+        return "/no_subpages/contacto";
     }
 
     @GetMapping("/contact")

@@ -27,4 +27,7 @@ public class OrderDetailsEntity {
     @Column(name = "unit_price")
     private BigDecimal unitPrice;
 
+    @Column(name = "details")
+    private String details;
+
 }

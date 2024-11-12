@@ -1,20 +1,33 @@
 package org.edu.usco.pw.ms_official.service;
 
+import jakarta.transaction.Transactional;
 import org.edu.usco.pw.ms_official.excepciones.ResourceNotFoundException;
-import org.edu.usco.pw.ms_official.model.OrderEntity;
-import org.edu.usco.pw.ms_official.model.UserEntity;
+import org.edu.usco.pw.ms_official.model.*;
+import org.edu.usco.pw.ms_official.repository.OrderDetailsRepository;
 import org.edu.usco.pw.ms_official.repository.OrderRepository;
+import org.edu.usco.pw.ms_official.repository.ProductRepository;
+import org.edu.usco.pw.ms_official.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class OrderService {
-
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     public OrderEntity createOrder(OrderEntity orderEntity) {
         return orderRepository.save(orderEntity);
@@ -48,10 +61,23 @@ public class OrderService {
         return orderRepository.findByUser_Cc(userCc); // Implementa el método en el repositorio
     }
 
+    @Transactional
+    public OrderEntity saveOrder(OrderEntity order) {
+        return orderRepository.save(order);
+    }
+
+    public Optional<OrderEntity> findPendingOrderByUser(UserEntity user) {
+        return orderRepository.findByUserAndStatus(user, "PENDING");
+    }
+
+    public OrderDetailsEntity saveOrderDetail(OrderDetailsEntity orderDetail) {
+        return orderDetailsRepository.save(orderDetail);
+    }
 
     public Optional<OrderEntity> findById(Long orderId) {
         return orderRepository.findById(orderId); // Asegúrate de que el repositorio esté configurado correctamente
     }
+
 
 
 

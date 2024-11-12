@@ -9,10 +9,7 @@
     background-color: var(--secondary-color) !important;
     box-sizing: border-box;
 }
-nav .menu a:hover {
-    background-color: #E2BFD9 !important;
-    border-radius: 5px;
-}
+
 
 body {
     font-family: var(--font-family);
@@ -37,14 +34,21 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex: 1 1 calc(20% - 40px); /* 4 tarjetas por fila en pantallas grandes */
     margin: 10px; /* Espacio entre las tarjetas */
-    text-align: center;
+    text-align: match-parent ;
     transition: transform 0.2s;
     min-width: 250px; /* Ancho mínimo para que no se reduzca demasiado */
 }
 
+.card-title{
+    color: #5a3672 !important;
+    font-weight: bold;
+}
+
+.card-text{
+    color: #5a3672;
+}
 .card:hover {
-    transform: scale(1.05); /* Aumentar un poco al pasar el mouse */
-    background-color: #5a3672 !important;
+    border: 2px solid #674188;
 }
 
 .card img {
@@ -54,14 +58,14 @@ body {
     border-radius: 10px; /* Bordes redondeados para la imagen */
 }
 
-.card h2 {
+.card h1 {
     color: #674188;
     font-family: 'Lora', serif;
 }
 
 .card p {
-    font-family: 'Lora', serif;
-    color: #333;
+    font-family: 'Merriweather', sans-serif;
+    color: #674188;
 }
 
 .btn {
@@ -117,6 +121,75 @@ body {
 
 body {
     -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+}
+.alert-success {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border-left: 5px solid var(--accent-color);
+    padding: 15px;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    --border-color: #674188;
+
+}
+
+.alert-success p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.alert-success .btn {
+    margin-top: 10px;
+    font-family: var(--font-family);
+    color: var(--secondary-color);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.alert-success .btn-primary {
+    background-color: var(--primary-color);
+}
+
+.alert-success .btn-primary:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+.alert-success .btn-secondary {
+    background-color: var(--accent-color);
+}
+
+.alert-success .btn-secondary:hover {
+    background-color: darken(var(--accent-color), 10%);
+}
+
+
+/* Estilo para el input de tipo number */
+input[type="number"] {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1em;
+    color: #333; /* Color del texto */
+    background-color: #f9f9f9; /* Fondo claro */
+    border: 1px solid #ced4da; /* Borde suave */
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    appearance: none; /* Ocultar flechas en algunos navegadores */
+}
+
+/* Efecto de foco */
+input[type="number"]:focus {
+    border-color: #007bff; /* Color de borde al enfocar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    outline: none;
 }
 
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido</title>
+    <link rel="stylesheet" th:href="@{/css/order.css}"> <!-- Asegúrate de incluir el CSS adecuado -->
+</head>
+<body>
+
+<div class="confirmation-container">
+    <h3 class="confirmation-title">Pedido Confirmado</h3>
+    <p>Gracias por tu compra, tu pedido ha sido confirmado.</p>
+
+    <div class="order-details">
+        <p><strong>ID de Orden:</strong> <span th:text="${order.id}"></span></p>
+        <p><strong>Total:</strong> $<span th:text="${order.total}"></span></p>
+        <p><strong>Estado del Pedido:</strong> <span th:text="${order.status}"></span></p>
+    </div>
+
+    <div class="payment-info">
+        <h4>Instrucciones de Pago:</h4>
+        <p>Tienes <strong>24 horas</strong> para realizar el pago de tu pedido a través de Nequi al número <strong>3008020893</strong>. Si no realizas el pago dentro de este plazo, tu pedido será cancelado automáticamente.</p>
+        <p>Una vez el pago se haya hecho debes enviar captura del comprobante al nuestro whatsapp. Una vez se haya verificado se te respondera de manera correspondiente y tu pedido se marcara como pago.</p>
+        <p>En la seccion de <strong>Mis pedidos</strong> puedes encontrar todos tu pendientes y sus estados para que estes pendiente de el, demás informacion al whatsapp.</p>
+        <p>Una vez entregado el pedido deberas ir ahi a colocar tu pedido como recibido, si no lo haces en un plazo de 3 dias lo haremos automaticamente.</p>
+    </div>
+
+    <div class="action-buttons">
+        <a href="/" class="button">Ir al Inicio</a>
+        <a href="/user/orders" class="button">Ver Pedidos</a>
+       <a href="https://wa.me/573008020893" class="button">WhatsApp</a>
+    </div>
+</div>
+
+</body>
+</html>

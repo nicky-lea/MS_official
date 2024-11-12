@@ -21,18 +21,18 @@ public class OrderEntity {
     @Column(name = "order_date")
     private LocalDateTime orderDate;
 
+    private String name;
+
+    private String email;
+
+    private String phone;
+
     @Column(name = "shipping_address")
     private String shippingAddress;
 
-    private String status;
+    private String status ="PENDING";
 
-    @Column(name = "payment_proof")
-    private String paymentProof;
-
-    @Column(name = "payment_date")
-    private LocalDateTime paymentDate;
-
-    private BigDecimal total;
+    private int total;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetailsEntity> orderDetails;
@@ -40,5 +40,4 @@ public class OrderEntity {
     public Long getUserCc() {
         return user != null ? user.getCc() : null; // Asegúrate de que 'getCc()' esté definido en la entidad User
     }
-
 }

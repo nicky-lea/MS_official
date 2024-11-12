@@ -3,6 +3,7 @@ package org.edu.usco.pw.ms_official.model;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -26,4 +27,6 @@ public class CartEntity {
     @Column(name = "added_date")
     private LocalDateTime addedDate;
 
+    @Column(name = "details", nullable = false)
+    private String details = "Detalles";
 }

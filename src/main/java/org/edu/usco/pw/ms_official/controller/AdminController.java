@@ -194,7 +194,7 @@ public class AdminController {
         }
 
         model.addAttribute("orders", orders);
-        return "admin/orders"; // Renderiza la vista orders.html para el admin
+        return "/admin/orders"; // Renderiza la vista orders.html para el admin
     }
 
     @PostMapping("/orders/markAsSent")

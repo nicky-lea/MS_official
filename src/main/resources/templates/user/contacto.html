@@ -23,38 +23,43 @@
     <!--End of Tawk.to Script-->
 </head>
 <body>
-    
-    <header>
-        <div class="logo-container">
-          <img src="../../img/logo.png" class="logo">
-        </div>
-        <nav>
-          <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-          <ul class="menu">
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" class="logo">
+    </div>
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="menu">
             <li><a href="/user">Inicio</a></li>
             <li><a href="/user#about">Nosotros</a></li>
             <li><a href="/user/products">Productos</a></li>
             <li><a href="/user/contacto">Contacto</a></li>
-          </ul>
-          <ul class="buttons">
+        </ul>
+        <ul class="buttons">
             <li class="car">
-              <a href="#" data-bs-toggle="modal" data-bs-target="#carritoModal">
-                <img src="../img/shop_car.png" alt="Carrito de Compras">
-              </a>
+                <a HREF="/user/cart"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0001 5H6.00008V8C6.00008 8.55228 5.55236 9 5.00008 9C4.44779 9 4.00008 8.55228 4.00008 8V5H2.00008C1.47754 5 1.0431 5.40231 1.00302 5.9233L0.0858437 17.8466C-0.00350923 19.0082 0.914931 20 2.07995 20H13.9202C15.0852 20 16.0037 19.0082 15.9143 17.8466L14.9971 5.9233C14.9571 5.40231 14.5226 5 14.0001 5H12.0001V8C12.0001 8.55228 11.5524 9 11.0001 9C10.4478 9 10.0001 8.55228 10.0001 8V5Z" fill="#674188"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00008 2C6.89551 2 6.00008 2.89543 6.00008 4V5H4.00008V4C4.00008 1.79086 5.79094 0 8.00008 0C10.2092 0 12.0001 1.79086 12.0001 4V5H10.0001V4C10.0001 2.89543 9.10465 2 8.00008 2Z" fill="#674188"/>
+                </svg>
+                </a>
             </li>
             <li class="perfil" id="perfil">
-              <a href="#"><img src="../img/userlogo.png" alt="Perfil de Usuario"></a>
-              <div class="perfil-dropdown" id="perfilDropdown">
-                <a href="editar_informacion.html">Editar Información</a>
-                <a href="ver_pedidos.html">Ver Pedidos</a>
-                <a th:href="@{/logout}" href="/logout">Cerrar Sesión</a>
-              </div>
+                <a href="#"><svg width="45" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20C10.107 20 8.36763 19.3425 6.99768 18.2435C6.99845 18.2441 6.99923 18.2448 7 18.2454V17.5625C7 15.7676 8.49238 14.3125 10.3333 14.3125H13.6667C15.5076 14.3125 17 15.7676 17 17.5625V18.2454C15.6304 19.3433 13.8919 20 12 20ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5003 17.5593 21.9635 12.0675 21.9998C12.045 21.9999 12.0225 22 12 22C11.9763 22 11.9527 21.9999 11.9291 21.9998C6.43889 21.9616 2 17.4992 2 12ZM12 7C10.1591 7 8.66667 8.45507 8.66667 10.25C8.66667 12.0449 10.1591 13.5 12 13.5C13.8409 13.5 15.3333 12.0449 15.3333 10.25C15.3333 8.45507 13.8409 7 12 7Z" fill="#674188"/>
+                </svg>
+                </a>
+                <div class="perfil-dropdown" id="perfilDropdown">
+                    <a href="/user/profile">Perfil</a>
+                    <a href="/user/orders">Pedidos</a>
+                    <form th:action="@{/logout}" method="post" id="logoutForm">
+                        <button type="submit" class="logout-button" >Cerrar sesión</button>
+                    </form>
+                </div>
             </li>
             </li>
-          </ul>
-        </nav>
-      </header>
-
+        </ul>
+    </nav>
+</header>
     <section id="contacto">
         <div class="contacto-container">
             <div class="contacto-imagen">

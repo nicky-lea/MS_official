@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
-<link rel="icon" href="../img/logo.png" type="image/png">
-<script src="js/menu_toggle.js"></script>
 <head>
-    <title>Pedidos - Administración</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
+    <link rel="stylesheet" href="../css/index_admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+    <script src="js/menu_toggle.js"></script>
+    <title>Orders - Admin</title>
+    <style>
+        .details { display: none; }
+        .toggleDetails { cursor: pointer; }
+        .userDetails { display: none; }
+        .toggleUserDetails { cursor: pointer; }
+    </style>
 </head>
 <body>
 <header>
@@ -15,88 +22,129 @@
     <nav>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         <ul class="menu">
-            <li><a href="/admin">Dashboard</a></li>
-            <li><a href="/admin/users">Usuarios</a></li>
-            <li><a href="/admin/orders">Pedidos</a></li>
-            <li><a href="/admin/products">Productos</a></li>
-            <li><a href="/admin/reports">Reportes</a></li>
+            <li><a th:href="@{/admin}">Dashboard</a></li>
+            <li><a th:href="@{/admin/users}">Usuarios</a></li>
+            <li><a th:href="@{/admin/orders}">Pedidos</a></li>
+            <li><a th:href="@{/admin/products}">Productos</a></li>
+            <li><a th:href="@{/admin/reports}">Reportes</a></li>
         </ul>
         <ul class="buttons">
-            <li><a href="/logout">Cerrar Sesión</a></li>
+            <li><form th:action="@{/logout}" method="post">
+                <button type="submit" class="button-search">Cerrar sesión</button>
+            </form></li>
         </ul>
     </nav>
 </header>
 <h2>Lista de Pedidos</h2>
 
-<form action="#" method="get" class="search-container">
-    <input type="number" name="userCc" placeholder="Buscar por usuario" class="search-input" />
-    <input type="number" name="orderId" placeholder="Buscar por id de pedido" class="search-input" />
-    <button type="submit" class="button-search">Buscar</button>
-</form>
-<form th:action="@{/admin/orders}" method="get" class="search-container">
-    <label for="sort">Ordenar por:</label>
-    <select name="sort" id="sort" class="selectpicker" data-style="btn-primary">
-        <option value="">Seleccionar...</option>
-        <option value="id" th:selected="${sort == 'id'}">ID del Pedido</option>
-        <option value="cc" th:selected="${sort == 'cc'}">CC del Usuario</option>
-    </select>
-    <button type="submit" class="button-search">Ordenar</button>
-</form>
+<!-- Mensaje si no se encuentran pedidos -->
+<div th:if="${message}">
+    <p class="message" th:text="${message}"></p>
+</div>
+
+<!-- Filtro y ordenación -->
+<div class="search-container">
+    <form method="get" class="sort-button">
+
+        <input type="text" name="userCc" id="userCc" class="search-input" placeholder="Buscar por usuario">
+        <input type="text" name="orderId" id="orderId" class="search-input" placeholder="Buscar por id de orden">
+
+        <select name="sort">
+            <option value="id">Ordenar por ID</option>
+            <option value="cc">Ordenar por CC de Usuario</option>
+        </select>
+
+        <button type="submit" class="button-search">Filtrar</button>
+    </form>
+</div>
+
+<!-- Lista de pedidos -->
 <table>
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Fecha</th>
-        <th>Estado</th>
-        <th>Detalles</th>
+        <th>ID Pedido</th>
+        <th>Usuario CC</th>
         <th>Total</th>
-        <th>Imagen de pago</th>
-        <th>Fecha de pago</th>
+        <th>Estado</th>
+        <th>Dirección de Envío</th>
+        <th>Productos</th>
         <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="order : ${orders}">
         <td th:text="${order.id}"></td>
-        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.userCc}"></td>
+        <td th:text="${order.total}"></td>
         <td th:text="${order.status}"></td>
-        <td th:text="${order.total != null ? order.total : 'Vacío'}"></td>
-        <td>
-            <img th:src="${order.paymentProof != null ? order.paymentProof : ''}" alt="Imagen de Pago" style="width: 100px;"/>
-        </td>
-        <td th:text="${order.paymentDate != null ? order.paymentDate : 'Vacío'}"></td>
+        <td th:text="${order.shippingAddress}"></td>
         <td>
             <ul>
-                <li th:each="detail : ${order.orderDetails}">
-                    <span th:text="${detail.product.name}">Producto</span> -
-                    <span th:text="${detail.quantity}">Cantidad</span>
+                <li th:each="orderDetail : ${order.orderDetails}">
+                    <span th:text="${orderDetail.product.name}"></span> -
+                    <span th:text="${orderDetail.quantity}"></span>
+                    <br>
+                    <p>DETALLES DE PERSONALIZACIÓN</p>
+                    <span th:text="${orderDetail.details}"></span>
                 </li>
             </ul>
         </td>
         <td>
-            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Pendiente')}" method="post">
-                <button type="submit" class="button-search">Pendiente</button>
-            </form>
-            <br>
-            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Cancelado')}" method="post">
-                <button type="submit" class="button-search">Cancelado</button>
-            </form>
-            <br>
-            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Reembolsado')}" method="post">
-                <button type="submit" class="button-search">Reembolsado</button>
-            </form>
-            <br>
-            <form th:action="@{/admin/orders/markAsSent(id=${order.id}, status='Enviado')}" method="post">
-                <button type="submit" class="button-search">Enviado</button>
-            </form>
+            <!-- Botón para mostrar la información del usuario (name, email, phone) -->
+            <button class="button-link toggleUserDetails" th:data-id="${order.userCc}" type="button">Mostrar Información del Usuario</button>
+            <div class="userDetails" th:id="'userDetails_' + ${order.userCc}">
+                <p>Nombre: <span th:text="${order.user.name}"></span></p>
+                <p>Email: <span th:text="${order.user.email}"></span></p>
+                <p>Teléfono: <span th:text="${order.user.phone}"></span></p>
+            </div>
 
+            <!-- Botón para mostrar los detalles de los productos -->
+            <button class="button-link toggleDetails" th:data-id="${order.id}" type="button">Mostrar Detalles</button>
+            <div class="details" th:id="'details_' + ${order.id}">
+                <h4>Detalles de Productos</h4>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="orderDetail : ${order.orderDetails}">
+                        <td th:text="${orderDetail.product.name}"></td>
+                        <td th:text="${orderDetail.quantity}"></td>
+                        <td th:text="${orderDetail.unitPrice}"></td>
+                        <td th:text="${orderDetail.unitPrice.multiply(orderDetail.quantity)}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </td>
-    </tr>
-    <tr th:if="${#lists.isEmpty(orders)}">
-        <td colspan="5">No se encontraron pedidos con los criterios de búsqueda.</td>
     </tr>
     </tbody>
 </table>
+
+<script>
+    // Script para mostrar/ocultar los detalles de los productos
+    document.querySelectorAll('.toggleDetails').forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = this.getAttribute('data-id');
+            const details = document.getElementById('details_' + orderId);
+            details.style.display = details.style.display === 'none' ? 'block' : 'none';
+        });
+    });
+
+    // Script para mostrar/ocultar la información del usuario
+    document.querySelectorAll('.toggleUserDetails').forEach(button => {
+        button.addEventListener('click', function() {
+            const userCc = this.getAttribute('data-id');
+            const userDetails = document.getElementById('userDetails_' + userCc);
+            userDetails.style.display = userDetails.style.display === 'none' ? 'block' : 'none';
+        });
+    });
+</script>
+
 </body>
 </html>
-

@@ -29,8 +29,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .csrf(csrf -> csrf
+//                        .ignoringRequestMatchers("/cart/remove") // Ignorar CSRF en la URL de eliminación
+//                )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/register","/", "/iniciar", "/css/**", "/js/**", "/img/**" , "/no_subpages/**").permitAll() // Permitir acceso a estas rutas sin autenticación
+                        .requestMatchers("/register","/", "/iniciar", "/css/**", "/js/**", "/img/**" , "/contacto","/cart").permitAll() // Permitir acceso a estas rutas sin autenticación
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación

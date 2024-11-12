@@ -17,9 +17,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u LEFT JOIN FETCH u.roles WHERE u.email = :email")
     Optional<UserEntity> findByEmailWithRoles(@Param("email") String email);
 
+    UserEntity findUserByEmail(String email);
+    Optional<UserEntity> findBycc(Long cc);
     Optional<UserEntity> findByEmail(String email);
-
-    // Validar si existe email
+    UserEntity findUserByCc(Long usercc);
+    UserEntity findByName(String name);
     boolean existsByEmail(String email);
 
     List<UserEntity> findByCc(Long userCc);

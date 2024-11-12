@@ -32,4 +32,8 @@ public class ProductEntity {
     @Column(name = "creation_date", updatable = false)
     private LocalDateTime creationDate;
 
+    public String getFormattedPrice() {
+        return price.stripTrailingZeros().toPlainString();
+    }
+
 }
