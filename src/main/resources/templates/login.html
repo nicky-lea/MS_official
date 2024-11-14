@@ -28,20 +28,21 @@
 </header>
 <main>
     <div class="form-container">
-        <h2>Iniciar Sesión</h2>
+        <h2 th:text="#{login.title}"></h2>
         <form th:action="@{/iniciar}" method="POST" class="form">
             <input type="email" id="email" name="username" placeholder="Email" autocomplete="off" required>
             <input type="password" id="password" name="password" autocomplete="off" placeholder="Contraseña" required>
 
-            <button type="submit" class="btn-primary">Iniciar Sesión</button>
+            <button type="submit" class="btn-primary" th:text="#{login.button}"></button>
         </form>
-        <p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
-        <p>Volver al inicio <a href="/"> Home </a></p>
+        <p><a th:href="@{/register}" th:text="#{login.register}"></a></p>
+        <p><a th:href="@{/}" th:text="#{login.home}"></a></p>
     </div>
     <div>
-        <p th:if="${param.error}">Nombre de usuario o contraseña incorrectos.</p>
-        <p th:if="${param.logout}">Has cerrado sesión correctamente.</p>
+        <p th:if="${param.error}" th:text="#{login.error}"></p>
+        <p th:if="${param.logout}" th:text="#{login.logout}"></p>
     </div>
 </main>
+
 </body>
 </html>

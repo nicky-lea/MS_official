@@ -12,7 +12,6 @@
     <title>Mis Pedidos</title>
 </head>
 <body>
-
 <header>
     <div class="logo-container">
         <img src="../img/logo.png" class="logo">
@@ -20,14 +19,35 @@
     <nav>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         <ul class="menu">
-            <li><a href="/user">Inicio</a></li>
-            <li><a href="/user#about">Nosotros</a></li>
-            <li><a href="/user/products">Productos</a></li>
-            <li><a href="/user/contacto">Contacto</a></li>
+            <li><a href="/user" th:text="#{nav.home}">Inicio</a></li>
+            <li><a href="/user#about" th:text="#{nav.about}">Nosotros</a></li>
+            <li><a href="/user/products" th:text="#{nav.products}">Productos</a></li>
+            <li><a href="/user/contacto" th:text="#{nav.contact}">Contacto</a></li>
         </ul>
         <ul class="buttons">
+            <div class="language-selector">
+                <div class="selected-language" onclick="toggleDropdown()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
+                    <span>Español</span>
+                    <i class="arrow"></i>
+                </div>
+                <div class="language-dropdown">
+                    <a href="?lang=es" class="language-option">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
+                        <span>Español</span>
+                    </a>
+                    <a href="?lang=en" class="language-option">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="flag-icon" />
+                        <span>English</span>
+                    </a>
+                    <a href="?lang=pt" class="language-option">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg" alt="Português" class="flag-icon" />
+                        <span>Português</span>
+                    </a>
+                </div>
+            </div>
             <li class="car">
-                <a HREF="/user/cart"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a href="/user/cart"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0001 5H6.00008V8C6.00008 8.55228 5.55236 9 5.00008 9C4.44779 9 4.00008 8.55228 4.00008 8V5H2.00008C1.47754 5 1.0431 5.40231 1.00302 5.9233L0.0858437 17.8466C-0.00350923 19.0082 0.914931 20 2.07995 20H13.9202C15.0852 20 16.0037 19.0082 15.9143 17.8466L14.9971 5.9233C14.9571 5.40231 14.5226 5 14.0001 5H12.0001V8C12.0001 8.55228 11.5524 9 11.0001 9C10.4478 9 10.0001 8.55228 10.0001 8V5Z" fill="#674188"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00008 2C6.89551 2 6.00008 2.89543 6.00008 4V5H4.00008V4C4.00008 1.79086 5.79094 0 8.00008 0C10.2092 0 12.0001 1.79086 12.0001 4V5H10.0001V4C10.0001 2.89543 9.10465 2 8.00008 2Z" fill="#674188"/>
                 </svg>
@@ -39,62 +59,70 @@
                 </svg>
                 </a>
                 <div class="perfil-dropdown" id="perfilDropdown">
-                    <a href="/user/profile">Perfil</a>
-                    <a href="/user/orders">Pedidos</a>
+                    <a href="/user/profile" th:text="#{nav.profile}">Perfil</a>
+                    <a href="/user/orders" th:text="#{nav.orders}">Pedidos</a>
                     <form th:action="@{/logout}" method="post" id="logoutForm">
-                        <button type="submit" class="logout-button" >Cerrar sesión</button>
+                        <button type="submit" class="logout-button" th:text="#{nav.logout}">Cerrar sesión</button>
                     </form>
                 </div>
-            </li>
             </li>
         </ul>
     </nav>
 </header>
-
-<h2>Mis Pedidos</h2>
+<h2 th:text="#{my_orders}"></h2>
 
 <div class="search-container">
-    <input type="text" placeholder="Buscar... " class="search-input">
-    <button class="button-search">Buscar </button>
-    <a href="/user/profile" class="button-link">Volver a mi perfil</a>
+    <input type="text" th:placeholder="#{search_placeholder}" class="search-input">
+    <button class="button-search" th:text="#{search_button}"></button>
+    <a href="/user/profile" class="button-link" th:text="#{profile_link}"></a>
 </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-            <th>Detalles</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order : ${orders}">
-            <td th:text="${order.id}"></td>
-            <td th:text="${order.orderDate}"></td>
-            <td th:text="${order.status}"></td>
-            <td>
-                <ul>
-                    <li th:each="detail : ${order.orderDetails}">
-                        <span th:text="${detail.product.name}">Producto</span> -
-                        <span th:text="${detail.quantity}">Cantidad</span>
-                    </li>
-                </ul>
-            </td>
-            <td>
-                <form th:action="@{/user/orders/received(id=${order.id})}" method="post">
-                    <button type="submit" class="btn-primary">Recibido</button>
-                    <button type="submit" class="btn-primary">Cancelar</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{id}"></th>
+        <th th:text="#{date}"></th>
+        <th th:text="#{status}"></th>
+        <th th:text="#{details}"></th>
+        <th th:text="#{actions}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.status}"></td>
+        <td>
+            <ul>
+                <li th:each="detail : ${order.orderDetails}">
+                    <span th:text="${detail.product.name}">Producto</span> -
+                    <span th:text="${detail.quantity}">Cantidad</span>
+                </li>
+            </ul>
+        </td>
+        <td>
+
+            <!-- Botón "Recibido" solo si el estado es "ENVIADO" -->
+            <form th:if="${order.status == 'ENVIADO'}" th:action="@{/user/markAsReceived/{id}(id=${order.id})}" method="post">
+                <button type="submit" class="btn" th:text="#{received}">Recibido</button>
+            </form>
+
+            <!-- Botón "Cancelar" solo si el estado es "PENDING" -->
+            <form th:if="${order.status == 'PENDING'}" th:action="@{/user/cancelOrder/{id}(id=${order.id})}" method="post">
+                <button type="submit" class="btn btn-danger" th:text="#{cancel}">Cancelar</button>
+            </form>
+
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="../js/menu_toggle.js"></script>
 <script src="../js/perfil_dropdown.js"></script>
+<script src="../../js/languagedropdown.js"></script>
 </body>
 </html>

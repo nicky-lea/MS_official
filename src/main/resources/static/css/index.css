@@ -332,3 +332,83 @@ footer {
 body {
   -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
 }
+
+.language-selector {
+  position: relative;
+  width: 160px;
+  font-family: 'Arial', sans-serif;
+  user-select: none;
+  background-color: #F7EFE5;
+}
+
+.selected-language {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background: #F7EFE5;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.selected-language:hover {
+  border-color: #674188;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.flag-icon {
+  width: 20px;
+  height: 15px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.arrow {
+  margin-left: auto;
+  border: solid #666;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #F7EFE5;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: none;
+  z-index: 1000;
+}
+
+.language-dropdown.show {
+  display: block;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.language-option:hover {
+  background-color: rgba(247, 247, 247, 0.45);
+}
+
+.language-option:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.language-option:last-child {
+  border-radius: 0 0 8px 8px;
+}

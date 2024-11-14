@@ -26,43 +26,64 @@
   <!--End of Tawk.to Script-->
 </head>
 <body>
-  <header>
-    <div class="logo-container">
-      <img src="../img/logo.png" class="logo">
-    </div>
-    <nav>
-      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-      <ul class="menu">
-        <li><a href="/user">Inicio</a></li>
-        <li><a href="/user#about">Nosotros</a></li>
-        <li><a href="user/products">Productos</a></li>
-        <li><a href="user/contacto">Contacto</a></li>
-      </ul>
-      <ul class="buttons">
-        <li class="car">
-          <a HREF="user/cart"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0001 5H6.00008V8C6.00008 8.55228 5.55236 9 5.00008 9C4.44779 9 4.00008 8.55228 4.00008 8V5H2.00008C1.47754 5 1.0431 5.40231 1.00302 5.9233L0.0858437 17.8466C-0.00350923 19.0082 0.914931 20 2.07995 20H13.9202C15.0852 20 16.0037 19.0082 15.9143 17.8466L14.9971 5.9233C14.9571 5.40231 14.5226 5 14.0001 5H12.0001V8C12.0001 8.55228 11.5524 9 11.0001 9C10.4478 9 10.0001 8.55228 10.0001 8V5Z" fill="#674188"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00008 2C6.89551 2 6.00008 2.89543 6.00008 4V5H4.00008V4C4.00008 1.79086 5.79094 0 8.00008 0C10.2092 0 12.0001 1.79086 12.0001 4V5H10.0001V4C10.0001 2.89543 9.10465 2 8.00008 2Z" fill="#674188"/>
-          </svg>
+<header>
+  <div class="logo-container">
+    <img src="../img/logo.png" class="logo">
+  </div>
+  <nav>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="menu">
+      <li><a href="/user" th:text="#{nav.home}">Inicio</a></li>
+      <li><a href="/user#about" th:text="#{nav.about}">Nosotros</a></li>
+      <li><a href="user/products" th:text="#{nav.products}">Productos</a></li>
+      <li><a href="user/contacto" th:text="#{nav.contact}">Contacto</a></li>
+    </ul>
+    <ul class="buttons">
+      <div class="language-selector">
+        <div class="selected-language" onclick="toggleDropdown()">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
+          <span>Español</span>
+          <i class="arrow"></i>
+        </div>
+        <div class="language-dropdown">
+          <a href="?lang=es" class="language-option">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
+            <span>Español</span>
           </a>
-        </li>
-        <li class="perfil" id="perfil">
-          <a href="#"><svg width="45" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20C10.107 20 8.36763 19.3425 6.99768 18.2435C6.99845 18.2441 6.99923 18.2448 7 18.2454V17.5625C7 15.7676 8.49238 14.3125 10.3333 14.3125H13.6667C15.5076 14.3125 17 15.7676 17 17.5625V18.2454C15.6304 19.3433 13.8919 20 12 20ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5003 17.5593 21.9635 12.0675 21.9998C12.045 21.9999 12.0225 22 12 22C11.9763 22 11.9527 21.9999 11.9291 21.9998C6.43889 21.9616 2 17.4992 2 12ZM12 7C10.1591 7 8.66667 8.45507 8.66667 10.25C8.66667 12.0449 10.1591 13.5 12 13.5C13.8409 13.5 15.3333 12.0449 15.3333 10.25C15.3333 8.45507 13.8409 7 12 7Z" fill="#674188"/>
-          </svg>
+          <a href="?lang=en" class="language-option">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="flag-icon" />
+            <span>English</span>
           </a>
-          <div class="perfil-dropdown" id="perfilDropdown">
-            <a href="user/profile">Perfil</a>
-            <a href="user/orders">Pedidos</a>
-            <form th:action="@{/logout}" method="post" id="logoutForm">
-              <button type="submit" class="logout-button" >Cerrar sesión</button>
-            </form>
-          </div>
-        </li>
-        </li>
-      </ul>
-    </nav>
-  </header>
+          <a href="?lang=pt" class="language-option">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg" alt="Português" class="flag-icon" />
+            <span>Português</span>
+          </a>
+        </div>
+      </div>
+      <li class="car">
+        <a href="user/cart"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0001 5H6.00008V8C6.00008 8.55228 5.55236 9 5.00008 9C4.44779 9 4.00008 8.55228 4.00008 8V5H2.00008C1.47754 5 1.0431 5.40231 1.00302 5.9233L0.0858437 17.8466C-0.00350923 19.0082 0.914931 20 2.07995 20H13.9202C15.0852 20 16.0037 19.0082 15.9143 17.8466L14.9971 5.9233C14.9571 5.40231 14.5226 5 14.0001 5H12.0001V8C12.0001 8.55228 11.5524 9 11.0001 9C10.4478 9 10.0001 8.55228 10.0001 8V5Z" fill="#674188"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00008 2C6.89551 2 6.00008 2.89543 6.00008 4V5H4.00008V4C4.00008 1.79086 5.79094 0 8.00008 0C10.2092 0 12.0001 1.79086 12.0001 4V5H10.0001V4C10.0001 2.89543 9.10465 2 8.00008 2Z" fill="#674188"/>
+        </svg>
+        </a>
+      </li>
+      <li class="perfil" id="perfil">
+        <a href="#"><svg width="45" height="65" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 20C10.107 20 8.36763 19.3425 6.99768 18.2435C6.99845 18.2441 6.99923 18.2448 7 18.2454V17.5625C7 15.7676 8.49238 14.3125 10.3333 14.3125H13.6667C15.5076 14.3125 17 15.7676 17 17.5625V18.2454C15.6304 19.3433 13.8919 20 12 20ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5003 17.5593 21.9635 12.0675 21.9998C12.045 21.9999 12.0225 22 12 22C11.9763 22 11.9527 21.9999 11.9291 21.9998C6.43889 21.9616 2 17.4992 2 12ZM12 7C10.1591 7 8.66667 8.45507 8.66667 10.25C8.66667 12.0449 10.1591 13.5 12 13.5C13.8409 13.5 15.3333 12.0449 15.3333 10.25C15.3333 8.45507 13.8409 7 12 7Z" fill="#674188"/>
+        </svg>
+        </a>
+        <div class="perfil-dropdown" id="perfilDropdown">
+          <a href="user/profile" th:text="#{nav.profile}">Perfil</a>
+          <a href="user/orders" th:text="#{nav.orders}">Pedidos</a>
+          <form th:action="@{/logout}" method="post" id="logoutForm">
+            <button type="submit" class="logout-button" th:text="#{nav.logout}">Cerrar sesión</button>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
   <section class="carousel">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
       <div class="carousel-inner">
@@ -88,35 +109,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </section>
 
-  <section id="about">
-    <div class="info_about">
-      <h1>Sobre Nosotros</h1>
-      En esta página encontrarás creaciones artesanales únicas, elaboradas con esmero, pasión y dedicación. Cada pieza refleja el cuidado y el detalle que ponemos en nuestro trabajo, transformando cualquier idea que tengas en una realidad tangible. Aquí, tus sueños e inspiraciones cobran vida a través de nuestras manos, convirtiéndose en obras personalizadas que cuentan una historia propia. ¡Deja volar tu imaginación y nosotros nos encargamos del resto!.
+<section id="about">
+  <div class="info_about">
+    <h1 th:text="#{about.title}">Sobre Nosotros</h1>
+    <p th:text="#{about.description}">
+      En esta página encontrarás creaciones artesanales únicas, elaboradas con esmero, pasión y dedicación. Cada pieza refleja el cuidado y el detalle que ponemos en nuestro trabajo, transformando cualquier idea que tengas en una realidad tangible. Aquí, tus sueños e inspiraciones cobran vida a través de nuestras manos, convirtiéndose en obras personalizadas que cuentan una historia propia. ¡Deja volar tu imaginación y nosotros nos encargamos del resto!
+    </p>
+  </div>
+  <div class="image_about">
+    <img src="../img/car_4.svg" alt="about">
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="../img/logo.png" alt="Manos creativas" />
     </div>
-    <div class="image_about">
-      <img src="../img/car_4.svg" alt="about">
+    <div class="footer-text">
+      <h2 th:text="#{footer.title}">Manos y Sueños</h2>
+      <p th:text="#{footer.description}">Transformando ideas en realidad, un sueño a la vez.</p>
     </div>
-  </section>
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <img src="../img/logo.png" alt="Manos creativas" />
-      </div>
-      <div class="footer-text">
-        <h2>Manos y Sueños</h2>
-        <p>Transformando ideas en realidad, un sueño a la vez.</p>
-        <p>Nuestras manos trabajan con dedicación para hacer que tus sueños cobren vida.</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2024 Manos y Sueños. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <p th:text="#{footer.copyright}">&copy; 2024 Manos y Sueños. Todos los derechos reservados.</p>
+  </div>
+</footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
   <script src="../js/menu_toggle.js"></script>
   <script src="../js/perfil_dropdown.js"></script>
   <script src="/js/cart.js"></script>
+<script src="../../js/languagedropdown.js"></script>
 </body>
 </html>

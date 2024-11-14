@@ -78,7 +78,21 @@ public class OrderService {
         return orderRepository.findById(orderId); // Asegúrate de que el repositorio esté configurado correctamente
     }
 
+    public void markAsReceived(Long orderId) {
+        OrderEntity order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        if ("ENVIADO".equals(order.getStatus())) {
+            order.setStatus("RECIBIDO");
+            orderRepository.save(order);
+        }
+    }
 
+    public void cancelOrder(Long orderId) {
+        OrderEntity order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        if ("PENDING".equals(order.getStatus())) {
+            order.setStatus("CANCELLED");
+            orderRepository.save(order);
+        }
+    }
 
 
 }

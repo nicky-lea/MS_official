@@ -1,99 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/menu_toggle.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/index_usuario.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" href="../../img/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <title>Document</title>
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/67047dff02d78d1a30eddbf5/1i9koobr4';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
+    <title th:text="#{contact.title}">Contact</title>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-          <img src="img/logo.png" class="logo">
-        </div>
-        <nav>
-          <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-            <ul class="menu">
-                <li><a href="/">Inicio</a></li>
-                <li><a href="/#about">Nosotros</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-            </ul>
-            <ul class="buttons">
-              <button class="btn-primary"><a href="/iniciar">Iniciar sesion</a></button>
-              <button class="btn-primary"><a href="/register">Registrarse</a></button>
-          </ul>
-        </nav>
-    </header>
+<header>
+    <div class="logo-container">
+        <img th:src="@{/img/logo.png}" class="logo">
+    </div>
+    <nav>
+        <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        <ul class="menu">
+            <li><a href="/" th:text="#{nav.home}">Inicio</a></li>
+            <li><a href="/#about" th:text="#{nav.about}">Nosotros</a></li>
+            <li><a href="/contacto" th:text="#{nav.contact}">Contacto</a></li>
+        </ul>
+        <ul class="buttons">
+            <div class="language-selector">
+                <div class="selected-language" onclick="toggleDropdown()">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
+                    <span>Español</span>
+                    <i class="arrow"></i>
+                </div>
+                <div class="language-dropdown">
+                    <a href="?lang=es" class="language-option">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
+                        <span>Español</span>
+                    </a>
+                    <a href="?lang=en" class="language-option">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg" alt="English" class="flag-icon" />
+                        <span>English</span>
+                    </a>
+                </div>
+            </div>
 
-    <section id="contacto">
-        <div class="contacto-container">
-            <div class="contacto-imagen">
-                <img src="../../img/car_4.svg" alt="Imagen de Contacto">
-            </div>
-            <div class="contacto-info">
-                <h1>¡Contáctanos!</h1>
-                <p>Estamos aquí para ayudarte. Si tienes alguna pregunta o necesitas asistencia, no dudes en comunicarte con nosotros.
-                    <br>
-                    contamos con whatsapp y si deseas en el globo de la esquina inferior derecha puede chatear con nosotros!
-                </p>
-                <button class="btn btn-primary"><a href="https://wa.me/573008020893">WhatsApp</a></button>
-            </div>
-        </div>
-    </section>
+            <a th:href="@{/iniciar}" class="btn btn-primary" th:text="#{button.login}">Iniciar Sesion</a>
+            <a th:href="@{/register}" class="btn btn-primary" th:text="#{button.register}">Registrarse</a>
+        </ul>
+    </nav>
+</header>
 
-    <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="carritoModalLabel">Carrito de Compras</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Aquí se mostrarán los productos agregados al carrito.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Proceder al Pago</button>
-                </div>
-            </div>
+<section id="contacto">
+    <div class="contacto-container">
+        <div class="contacto-imagen">
+            <img src="../../img/car_4.svg" alt="Imagen de Contacto">
+        </div>
+        <div class="contacto-info">
+            <h1 th:text="#{contact.title}">¡Contáctanos!</h1>
+            <p th:text="#{contact.description}">
+                Estamos aquí para ayudarte. Si tienes alguna pregunta o necesitas asistencia, no dudes en comunicarte con nosotros.
+            </p>
+            <p th:text="#{contact.whatsapp}">
+                contamos con whatsapp y si deseas en el globo de la esquina inferior derecha puede chatear con nosotros!
+            </p>
+            <button class="btn btn-primary">
+                <a th:href="|https://wa.me/573008020893|" th:text="#{contact.whatsapp_button}">WhatsApp</a>
+            </button>
         </div>
     </div>
+</section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="../../img/logo.png" alt="Manos creativas">
-            </div>
-            <div class="footer-text">
-                <h2>Manos y Sueños</h2>
-                <p>Transformando ideas en realidad, un sueño a la vez.</p>
-                <p>Nuestras manos trabajan con dedicación para hacer que tus sueños cobren vida.</p>
-            </div>
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <img src="../../img/logo.png" alt="Manos creativas">
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Manos y Sueños. Todos los derechos reservados.</p>
+        <div class="footer-text">
+            <h2 th:text="#{footer.title}">Manos y Sueños</h2>
+            <p th:text="#{footer.description}">Transformando ideas en realidad, un sueño a la vez.</p>
+            <p>&copy; 2024 <span th:text="#{footer.copyright}">Todos los derechos reservados.</span></p>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../js/menu_toggle.js"></script>
-    <script src="../../js/perfil_dropdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="../../js/menu_toggle.js"></script>
+<script src="../../js/perfil_dropdown.js"></script>
+<script src="../../js/languagedropdown.js"></script>
 </body>
 </html>

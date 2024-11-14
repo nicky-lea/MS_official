@@ -1,7 +1,5 @@
 package org.edu.usco.pw.ms_official.controller;
 
-
-import jakarta.servlet.http.HttpSession;
 import org.edu.usco.pw.ms_official.model.*;
 import org.edu.usco.pw.ms_official.repository.OrderDetailsRepository;
 import org.edu.usco.pw.ms_official.repository.OrderRepository;
@@ -12,29 +10,27 @@ import org.edu.usco.pw.ms_official.service.OrderService;
 import org.edu.usco.pw.ms_official.service.ProductService;
 import org.edu.usco.pw.ms_official.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.security.Principal;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/user")  // Define la ruta base para todos los endpoints de este controlador como "/user"
 @Controller  // Anota la clase como un controlador de Spring MVC
 public class UserController {
+    @Autowired
+    private OrderService orderService;
 
-    // Inyección de dependencias para los servicios de productos, usuarios, carrito y repositorios
+    @Autowired
+    private MessageSource messageSource;
+
     @Autowired
     private ProductService productService;
 
@@ -147,14 +143,6 @@ public class UserController {
         return "redirect:/user/products";  // Redirige a la vista de productos
     }
 
-//    @PostMapping("/update")
-//    public String updateCart(@RequestParam Long userCc,
-//                             @RequestParam Map<Long, Integer> quantities,
-//                             @RequestParam Map<Long, String> details) {
-//        cartService.updateCart(userCc, quantities, details);  // Llamar al servicio para actualizar el carrito
-//        return "redirect:/user/cart?userCc=" + userCc;  // Redirigir a la misma página
-//    }
-
     @PostMapping("/cart/update")
     public String updateCart(@RequestParam List<Integer> quantities,
                              @RequestParam List<String> details,
@@ -223,11 +211,8 @@ public class UserController {
         return "user/preview"; // Vista de previsualización
     }
 
-        @Autowired
-        private OrderService orderService;
-
     @PostMapping("/makeorder")
-    public String makeOrder(RedirectAttributes redirectAttributes, Model model, @RequestParam("userCc") Long userCc,
+    public String makeOrder(RedirectAttributes redirectAttributes,Locale locale, Model model, @RequestParam("userCc") Long userCc,
                             @RequestParam("name") String name,
                             @RequestParam("email") String email,
                             @RequestParam("phone") String phone,
@@ -237,7 +222,8 @@ public class UserController {
         // Verificar si el usuario existe
         Optional<UserEntity> userOpt = userRepository.findBycc(userCc);
         if (userOpt.isEmpty()) {
-            model.addAttribute("error", "El usuario no existe");
+            String errorMessage = messageSource.getMessage("user_not_found", null, locale);
+            model.addAttribute("error", errorMessage);
             return "redirect:/user/cart";
         }
 
@@ -246,7 +232,8 @@ public class UserController {
         // Verificar si ya hay un pedido pendiente para este usuario
         Optional<OrderEntity> pendingOrder = orderService.findPendingOrderByUser(user);
         if (pendingOrder.isPresent()) {
-            redirectAttributes.addFlashAttribute("error", "Ya tienes un pedido pendiente. Solo puedes realizar uno a la vez.");
+            String errorMessage = messageSource.getMessage("pending_order", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
             return "redirect:/user/cart";
         }
 
@@ -400,12 +387,17 @@ public class UserController {
         return "/user/orders"; // Renderiza la vista orders.html para el admin
     }
 
-
-    // Marca un pedido como recibido
-    @PostMapping("/orders/{orderId}/received")
-    public String markOrderAsReceived(@PathVariable Long orderId) {
-        orderService.updateOrderStatus(orderId, "RECIBIDO");  // Actualiza el estado del pedido a "delivered"
-        return "redirect:/user/orders";  // Redirige a la página de pedidos del usuario
+    @PostMapping("/markAsReceived/{Id}")
+    public String markAsReceived(@PathVariable Long Id) {
+        orderService.markAsReceived(Id);
+        return "redirect:/user/orders"; // O cualquier URL donde desees mostrar la lista de órdenes
     }
+
+    @PostMapping("/cancelOrder/{Id}")
+    public String cancelOrder(@PathVariable Long Id) {
+        orderService.cancelOrder(Id);
+        return "redirect:/user/orders"; // O cualquier URL donde desees mostrar la lista de órdenes
+    }
+
 
 }
