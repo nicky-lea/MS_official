@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Reporte de Ventas</title>
+    <link th:href="@{/css/report.css}" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+    Generar Reporte de Ventas
+</header>
+
+<form action="/admin/generate" method="get" id="reportForm">
+    <h2>Generar Reporte</h2>
+
+    <label for="dateType">Seleccione el tipo de filtro:</label>
+    <select id="dateType" name="dateType" onchange="updateForm()" required>
+        <option value="day" selected>Fecha específica</option>
+        <option value="month">Mes</option>
+        <option value="year">Año</option>
+    </select>
+
+    <div id="dayInput" class="date-input">
+        <label for="specificDate">Fecha:</label>
+        <input type="date" id="specificDate" name="specificDate" required>
+    </div>
+
+    <div id="monthInput" class="date-input" style="display: none;">
+        <label for="specificMonth">Mes:</label>
+        <input type="month" id="specificMonth" name="specificMonth" required>
+    </div>
+
+    <div id="yearInput" class="date-input" style="display: none;">
+        <label for="specificYear">Año:</label>
+        <input type="number" id="specificYear" name="specificYear" min="2000" max="2100" required>
+    </div>
+
+    <button type="submit">Generar Reporte</button>
+    <br>
+    <a href="/admin"><-- Regresar</a>
+</form>
+
+<script>
+    // Función para mostrar u ocultar los campos según la opción seleccionada
+    function updateForm() {
+        const dateType = document.getElementById("dateType").value;
+
+        // Asegúrate de ocultar los campos que no se necesitan
+        document.getElementById("dayInput").style.display = dateType === "day" ? "block" : "none";
+        document.getElementById("monthInput").style.display = dateType === "month" ? "block" : "none";
+        document.getElementById("yearInput").style.display = dateType === "year" ? "block" : "none";
+
+        // Eliminar el atributo required de los campos no visibles
+        const inputs = document.querySelectorAll(".date-input input");
+        inputs.forEach(input => {
+            if (input.closest('.date-input').style.display === "none") {
+                input.removeAttribute("required");
+            } else {
+                input.setAttribute("required", "required");
+            }
+        });
+    }
+
+    // Inicializar el formulario para que la "Fecha Específica" sea visible por defecto
+    document.addEventListener("DOMContentLoaded", function() {
+        updateForm();
+    });
+</script>
+
+</body>
+</html>
+
+

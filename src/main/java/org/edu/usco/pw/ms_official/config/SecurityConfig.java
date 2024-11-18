@@ -11,79 +11,124 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 import java.util.Collection;
 
-@Configuration  // Indica que esta clase es una configuración de Spring
-@EnableWebSecurity  // Habilita la seguridad web de Spring
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
-    // Bean que configura el codificador de contraseñas usando BCrypt
+    /**
+     * Configura el codificador de contraseñas utilizando BCrypt.
+     * Este bean es utilizado para codificar las contraseñas de los usuarios de manera segura.
+     *
+     * @return Un objeto BCryptPasswordEncoder que será usado para codificar las contraseñas.
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();  // Retorna un codificador de contraseñas BCrypt
+        return new BCryptPasswordEncoder();
     }
 
-    // Bean que configura la cadena de filtros de seguridad
+    /**
+     * Configura la cadena de filtros de seguridad que define las reglas de acceso a las rutas.
+     * Las rutas se protegen de acuerdo con los roles de los usuarios.
+     *
+     * @param http El objeto HttpSecurity que permite configurar la seguridad.
+     * @return La configuración de seguridad construida.
+     * @throws Exception Si ocurre un error durante la configuración de la seguridad.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // Permite acceso sin autenticación a estas rutas
-                        .requestMatchers("/register", "/", "/iniciar", "/css/**", "/js/**", "/img/**", "/contacto",  "/change-language/**"  ).permitAll()
-                        // Solo permite acceso a usuarios con rol ADMIN para rutas /admin/**
+                        /**
+                         * Permite acceso sin autenticación a estas rutas.
+                         */
+                        .requestMatchers("/register", "/", "/iniciar", "/css/**", "/js/**", "/img/**", "/contacto",  "/change-language/**").permitAll()
+                        /**
+                         * Solo permite acceso a usuarios con rol ADMIN para rutas /admin/**.
+                         */
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // Solo permite acceso a usuarios con rol USER para rutas /user/**
+                        /**
+                         * Solo permite acceso a usuarios con rol USER para rutas /user/**.
+                         */
                         .requestMatchers("/user/**").hasRole("USER")
-                        // Cualquier otra solicitud requiere autenticación
+                        /**
+                         * Cualquier otra solicitud requiere autenticación.
+                         */
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        // Configura la página de inicio de sesión
+                        /**
+                         * Configura la página de inicio de sesión.
+                         */
                         .loginPage("/iniciar")
-                        // Establece un manejador de éxito de autenticación
+                        /**
+                         * Establece un manejador de éxito de autenticación.
+                         */
                         .successHandler(successHandler())
-                        .permitAll()  // Permite el acceso a la página de inicio de sesión
+                        .permitAll()
                 )
                 .logout(logout -> logout
-                        // Configura la URL para cerrar sesión
+                        /**
+                         * Configura la URL para cerrar sesión.
+                         */
                         .logoutUrl("/logout")
-                        // URL de redirección después de cerrar sesión
+                        /**
+                         * URL de redirección después de cerrar sesión.
+                         */
                         .logoutSuccessUrl("/")
-                        // Invalidar sesión después de cerrar sesión
+                        /**
+                         * Invalidar sesión después de cerrar sesión.
+                         */
                         .invalidateHttpSession(true)
-                        // Elimina la cookie JSESSIONID
+                        /**
+                         * Elimina la cookie JSESSIONID.
+                         */
                         .deleteCookies("JSESSIONID")
-                        .permitAll()  // Permite el acceso al cierre de sesión
+                        .permitAll()
                 );
 
-        return http.build();  // Construye y retorna la configuración de seguridad
+        return http.build();
     }
 
-    // Bean que configura el manejador de éxito de autenticación
+    /**
+     * Configura el manejador de éxito de autenticación que se ejecuta después de que un usuario se autentica correctamente.
+     * Dependiendo del rol del usuario, se redirige a la página correspondiente.
+     *
+     * @return Un AuthenticationSuccessHandler que maneja la redirección después de una autenticación exitosa.
+     */
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return (request, response, authentication) -> {
-            // Obtiene los roles (authorities) del usuario autenticado
+            /**
+             * Obtiene los roles (authorities) del usuario autenticado.
+             */
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            String redirectUrl = "/";  // URL por defecto para redirigir al usuario
+            String redirectUrl = "/";
 
-            // Imprime los roles para depuración
+            /**
+             * Imprime los roles para depuración.
+             */
             for (GrantedAuthority authority : authorities) {
                 System.out.println("Authority: " + authority.getAuthority());
             }
 
-            // Dependiendo del rol, redirige a la página correspondiente
+            /**
+             * Dependiendo del rol, redirige a la página correspondiente.
+             */
             for (GrantedAuthority authority : authorities) {
                 if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                    redirectUrl = "/admin";  // Redirige al área de administrador
+                    redirectUrl = "/admin"; // Redirige al área de administrador
                     break;
                 } else if (authority.getAuthority().equals("ROLE_USER")) {
-                    redirectUrl = "/user";  // Redirige al área de usuario
+                    redirectUrl = "/user"; // Redirige al área de usuario
                     break;
                 }
             }
 
-            // Redirige al usuario a la URL determinada
+            /**
+             * Redirige al usuario a la URL determinada.
+             */
             System.out.println("Redirecting to: " + redirectUrl);
-            response.sendRedirect(redirectUrl);  // Realiza la redirección
+            response.sendRedirect(redirectUrl);
         };
     }
 }

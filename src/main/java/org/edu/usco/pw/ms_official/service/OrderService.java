@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -29,29 +32,12 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
-    public OrderEntity createOrder(OrderEntity orderEntity) {
-        return orderRepository.save(orderEntity);
-    }
 
-    public List<OrderEntity> getOrdersByUserId(Long userCc) {
-        UserEntity user = new UserEntity(); // Debes buscar el usuario por ID
-        user.setCc(userCc);
-        return orderRepository.findByUser(user);
-    }
-
-    public OrderEntity getOrderById(Long orderId) {
-        return orderRepository.findById(orderId).orElse(null);
-    }
-
-    public void deleteOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
-    }
-
-    public void updateOrderStatus(Long orderId, String status) {
-        OrderEntity order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-        order.setStatus(status);
-        orderRepository.save(order);
-    }
+//    public void updateOrderStatus(Long orderId, String status) {
+//        OrderEntity order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+//        order.setStatus(status);
+//        orderRepository.save(order);
+//    }
 
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll(); // Obtiene todos los pedidos
@@ -80,8 +66,8 @@ public class OrderService {
 
     public void markAsReceived(Long orderId) {
         OrderEntity order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
-        if ("ENVIADO".equals(order.getStatus())) {
-            order.setStatus("RECIBIDO");
+        if ("SENT".equals(order.getStatus())) {
+            order.setStatus("RECEIVED");
             orderRepository.save(order);
         }
     }
@@ -94,5 +80,20 @@ public class OrderService {
         }
     }
 
+    public List<OrderEntity> findByUserEmail(String userEmail) {
+        return orderRepository.findByUserEmail(userEmail); // Buscar pedidos por email del usuario
+    }
+
+    public void updateOrderStatus(Long orderId, String status) {
+        // Verifica que la orden exista
+        Optional<OrderEntity> orderOpt = orderRepository.findById(orderId);
+        if (orderOpt.isPresent()) {
+            OrderEntity order = orderOpt.get();
+            order.setStatus(status);
+            orderRepository.save(order);
+        } else {
+            throw new RuntimeException("Orden no encontrada con ID: " + orderId);
+        }
+    }
 
 }

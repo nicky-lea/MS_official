@@ -31,8 +31,11 @@
 </header>
 <h2>Lista de Productos</h2>
 <div class="search-container">
-    <input type="text" placeholder="Buscar..." class="search-input">
-    <button class="button-search">Buscar</button>
+    <form action="/admin/products" method="get">
+        <input type="text" id="searchTerm" name="searchTerm" placeholder="Buscar por nombre o descripción" class="search-input" />
+        <input type="number" id="searchById" name="searchById" placeholder="Buscar por ID" class="search-input" />
+        <button type="submit" class="button-search">Buscar</button>
+    </form>
     <a href="/admin/products/new" class="button-create">Nuevo Producto</a>
 </div>
 <table>
@@ -44,19 +47,20 @@
         <th>Stock</th>
         <th>Acciones</th>
     </tr>
-    <th:block th:each="productMap : ${productList}">
+    <th:block th:each="product : ${productList}">
         <tr>
-            <td th:text="${productMap.get('product').id}"></td>
-            <td th:text="${productMap.get('product').name}"></td>
-            <td th:text="${productMap.get('product').price}"></td>
-            <td th:text="${productMap.get('product').description}"></td>
-            <td th:text="${productMap.get('product').stock}"></td>
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.stock}"></td>
             <td>
-                <a th:href="@{/admin/products/edit/{id}(id=${productMap.get('product').id})}" class="button-link">Editar</a>
-                <a th:href="@{/admin/products/delete/{id}(id=${productMap.get('product').id})}" class="button-link">Eliminar</a>
+                <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="button-link">Editar</a>
+                <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" class="button-link">Eliminar</a>
             </td>
         </tr>
     </th:block>
 </table>
 </body>
 </html>
+

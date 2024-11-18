@@ -122,6 +122,9 @@ public class UserService {
         return userRepository.findAll(Sort.by(Sort.Direction.ASC, "email"));
     }
 
+    public UserEntity findByName(String name) {
+        return userRepository.findByName(name).orElse(null);
+    }
 
 }
 

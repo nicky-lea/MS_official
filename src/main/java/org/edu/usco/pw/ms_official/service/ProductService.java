@@ -6,10 +6,12 @@ import org.edu.usco.pw.ms_official.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.Pageable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -72,4 +74,23 @@ public class ProductService {
         ProductEntity product = getProductById(id);
         productRepository.delete(product);
     }
+
+    public List<ProductEntity> getAllProductsSorted(String sortBy, String order) {
+        Sort sort = order.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        return productRepository.findAll(sort);
+    }
+    // Método para buscar productos por nombre o descripción con coincidencias parciales
+    public List<ProductEntity> searchByNameOrDescription(String searchTerm) {
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            return productRepository.searchByNameOrDescription(searchTerm);
+        } else {
+            return productRepository.findAll();
+        }
+    }
+
+    // Método para buscar un producto por ID
+    public List<ProductEntity> getProductoById(Long id) {
+        return productRepository.findById(id).map(List::of).orElse(List.of());
+    }
+
 }

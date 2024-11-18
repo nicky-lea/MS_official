@@ -192,5 +192,52 @@ input[type="number"]:focus {
     outline: none;
 }
 
+.sort-button{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #F7EFE5;
+    cursor: pointer;
+    margin-left: 50px;
+    border: none;
+}
+
+.sort-button select{
+    width: 200px; /* Ancho fijo para las listas */
+    background-color: #F7EFE5;
+    font-size: 14px;
+    color: #674188;
+}
+
+.sort-button select:hover,
+.status-button select:hover {
+    border-color: #71359c; /* Color del borde al pasar el ratón */
+
+}
+.sort-select option {
+    background-color: white;
+    color: #674188;
+    padding: 12px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+}
+.sort-select option:hover,
+.sort-select option:checked {
+    background-color: #F7EFE5 !important;
+    color: #674188 !important;
+}
+
+/* Agregar íconos a las opciones */
+.sort-select option[value*="asc"]::before {
+    content: "↑ ";
+}
+
+.sort-select option[value*="desc"]::before {
+    content: "↓ ";
+}
+
+
 
 

@@ -22,7 +22,7 @@
             <li><a th:href="@{/admin/users}">Usuarios</a></li>
             <li><a th:href="@{/admin/orders}">Pedidos</a></li>
             <li><a th:href="@{/admin/products}">Productos</a></li>
-            <li><a th:href="@{/admin/reports}">Reportes</a></li>
+            <li><a th:href="@{/admin/report}">Reportes</a></li>
         </ul>
         <ul class="buttons">
             <li><form th:action="@{/logout}" method="post">
@@ -43,7 +43,7 @@
             <div class="card">
                 <h2>Pedidos</h2>
                 <p>Revisa y gestiona los pedidos realizados.</p>
-                <a href="admin_orders.html" class="btn btn-primary">Gestionar Pedidos</a>
+                <a th:href="@{/admin/orders}" class="btn btn-primary">Gestionar Pedidos</a>
             </div>
             <div class="card">
                 <h2>Productos</h2>

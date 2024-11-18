@@ -71,19 +71,42 @@
 </header>
 <h2 th:text="#{my_orders}"></h2>
 
-<div class="search-container">
-    <input type="text" th:placeholder="#{search_placeholder}" class="search-input">
-    <button class="button-search" th:text="#{search_button}"></button>
-    <a href="/user/profile" class="button-link" th:text="#{profile_link}"></a>
+
+    <form action="/user/orders" method="get" class="search-container">
+        <input type="text" name="orderId" th:placeholder="#{search_placeholder}" class="search-input" />
+        <!-- Botón de búsqueda -->
+        <button th:text="#{search_button}" class="button-search">Filtrar</button>
+        <a href="/user/profile" class="button-link" th:text="#{profile_link}">Perfil</a>
+    </form>
+
+<div class="sort-button">
+    <select name="sort" id="sortSelect" onchange="updateSearchParams()" class="sort-button">
+        <option value="id" th:text="#{sort.by.id}">Ordenar por ID</option>
+        <option value="total" th:text="#{sort.by.total}">Ordenar por Total</option>
+        <option value="date" th:text="#{sort.by.date}">Ordenar por Fecha</option>
+    </select>
+
+    <select name="status" id="statusSelect" onchange="updateSearchParams()" class="sort-button">
+        <option value="" th:text="#{filter.by.status}">Filtrar por Estado</option>
+        <option value="PENDING" th:text="#{status.pending}">Pendiente</option>
+        <option value="COMPLETED" th:text="#{status.completed}">Completado</option>
+        <option value="CANCELLED" th:text="#{status.cancelled}">Cancelado</option>
+        <option value="PAID" th:text="#{status.paid}">Pago</option>
+        <option value="REFUND" th:text="#{status.refund}">Pago</option>
+        <option value="SENT" th:text="#{status.sent}">Pago</option>
+        <option value="RECEIVED" th:text="#{status.received}">Pago</option>
+    </select>
 </div>
 
-<table>
+
+<table >
     <thead>
     <tr>
         <th th:text="#{id}"></th>
         <th th:text="#{date}"></th>
         <th th:text="#{status}"></th>
         <th th:text="#{details}"></th>
+        <th th:text="#{total}"></th>
         <th th:text="#{actions}"></th>
     </tr>
     </thead>
@@ -100,14 +123,15 @@
                 </li>
             </ul>
         </td>
+        <td th:text="${order.total}"></td>
         <td>
 
-            <!-- Botón "Recibido" solo si el estado es "ENVIADO" -->
-            <form th:if="${order.status == 'ENVIADO'}" th:action="@{/user/markAsReceived/{id}(id=${order.id})}" method="post">
+
+            <form th:if="${order.status == 'SENT'}" th:action="@{/user/markAsReceived/{id}(id=${order.id})}" method="post">
                 <button type="submit" class="btn" th:text="#{received}">Recibido</button>
             </form>
 
-            <!-- Botón "Cancelar" solo si el estado es "PENDING" -->
+
             <form th:if="${order.status == 'PENDING'}" th:action="@{/user/cancelOrder/{id}(id=${order.id})}" method="post">
                 <button type="submit" class="btn btn-danger" th:text="#{cancel}">Cancelar</button>
             </form>
@@ -124,5 +148,30 @@
 <script src="../js/menu_toggle.js"></script>
 <script src="../js/perfil_dropdown.js"></script>
 <script src="../../js/languagedropdown.js"></script>
+<script>
+    function updateSearchParams() {
+        const sortValue = document.getElementById('sortSelect').value;
+        const statusValue = document.getElementById('statusSelect').value;
+
+        let url = '/user/orders?';
+
+        if (sortValue) {
+            url += `sort=${sortValue}&`;
+        }
+
+        if (statusValue) {
+            url += `status=${statusValue}&`;
+        }
+
+        // Eliminar el último '&' si existe
+        if (url.endsWith('&')) {
+            url = url.slice(0, -1);
+        }
+
+        // Redirigir a la nueva URL
+        window.location.href = url;
+    }
+
+</script>
 </body>
 </html>

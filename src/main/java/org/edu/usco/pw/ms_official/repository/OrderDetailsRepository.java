@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderDetailsRepository extends JpaRepository<OrderDetailsEntity, Long> {
-    // Puedes agregar métodos específicos si es necesario
 }

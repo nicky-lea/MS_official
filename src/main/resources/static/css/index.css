@@ -354,7 +354,7 @@ body {
 
 .selected-language:hover {
   border-color: #674188;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgb(113, 53, 156);
 }
 
 .flag-icon {
@@ -366,7 +366,7 @@ body {
 
 .arrow {
   margin-left: auto;
-  border: solid #666;
+  border: solid #674188;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
@@ -383,7 +383,7 @@ body {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   margin-top: 5px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgb(113, 53, 156);
   display: none;
   z-index: 1000;
 }

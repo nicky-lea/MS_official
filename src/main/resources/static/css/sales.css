@@ -1,0 +1,120 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F7EFE5;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #674188;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+#container {
+    width: 80%;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #E2BFD9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #674188;
+}
+
+h1 {
+    color: #674188;
+    font-size: 28px;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #674188;
+    color: white;
+    font-size: 18px;
+}
+
+td {
+    font-size: 16px;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #674188;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    #reportContent {
+        width: 95%;
+    }
+
+    table th, table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .download-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+}
+
+.button{
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #674188;
+    color: white; text-decoration: none;
+    border-radius: 5px;
+
+}
