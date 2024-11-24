@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/index_usuario.css">
-    <link rel="stylesheet" href="../../css/cart.css">
+    <link rel="stylesheet" th:href="@{/css/index_usuario.css}">
+    <link rel="stylesheet" th:href="@{/css/cart.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -27,21 +27,28 @@
 
 <header>
     <div class="logo-container">
-        <img src="../img/logo.png" class="logo">
+        <img th:src="@{/img/logo.png}" class="logo" alt="Logo de la pagina">
     </div>
     <nav>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         <ul class="menu">
-            <li><a href="/user" th:text="#{nav.home}">Inicio</a></li>
-            <li><a href="/user#about" th:text="#{nav.about}">Nosotros</a></li>
-            <li><a href="/user/products" th:text="#{nav.products}">Productos</a></li>
-            <li><a href="/user/contacto" th:text="#{nav.contact}">Contacto</a></li>
+            <li><a th:href="@{/user}" th:text="#{nav.home}">Inicio</a></li>
+            <li><a th:href="@{/user#about}" th:text="#{nav.about}">Nosotros</a></li>
+            <li><a th:href="@{/user/products}" th:text="#{nav.products}">Productos</a></li>
+            <li><a th:href="@{/user/contacto}" th:text="#{nav.contact}">Contacto</a></li>
         </ul>
         <ul class="buttons">
             <div class="language-selector">
                 <div class="selected-language" onclick="toggleDropdown()">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg" alt="Español" class="flag-icon" />
-                    <span>Español</span>
+                    <img th:src="@{/img/flag_of_spain.svg}"
+                         th:if="${#locale.language == 'es'}" alt="Español" class="flag-icon" />
+
+                    <img th:src="@{/img/flag_of_the_united_states.svg}"
+                         th:if="${#locale.language == 'en'}" alt="English" class="flag-icon" />
+
+                    <img th:src="@{/img/flag_of_portugal.svg}"
+                         th:if="${#locale.language == 'pt'}" alt="Português" class="flag-icon" />
+                    <span th:text="${#locale.language == 'es' ? 'Español' : #locale.language == 'en' ? 'English' : 'Português'}"></span>
                     <i class="arrow"></i>
                 </div>
                 <div class="language-dropdown">
@@ -60,7 +67,7 @@
                 </div>
             </div>
             <li class="car">
-                <a href="/user/cart"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <a th:href="@{/user/cart}"><svg width="30" height="35" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0001 5H6.00008V8C6.00008 8.55228 5.55236 9 5.00008 9C4.44779 9 4.00008 8.55228 4.00008 8V5H2.00008C1.47754 5 1.0431 5.40231 1.00302 5.9233L0.0858437 17.8466C-0.00350923 19.0082 0.914931 20 2.07995 20H13.9202C15.0852 20 16.0037 19.0082 15.9143 17.8466L14.9971 5.9233C14.9571 5.40231 14.5226 5 14.0001 5H12.0001V8C12.0001 8.55228 11.5524 9 11.0001 9C10.4478 9 10.0001 8.55228 10.0001 8V5Z" fill="#674188"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.00008 2C6.89551 2 6.00008 2.89543 6.00008 4V5H4.00008V4C4.00008 1.79086 5.79094 0 8.00008 0C10.2092 0 12.0001 1.79086 12.0001 4V5H10.0001V4C10.0001 2.89543 9.10465 2 8.00008 2Z" fill="#674188"/>
                 </svg>
@@ -72,8 +79,8 @@
                 </svg>
                 </a>
                 <div class="perfil-dropdown" id="perfilDropdown">
-                    <a href="/user/profile" th:text="#{nav.profile}">Perfil</a>
-                    <a href="/user/orders" th:text="#{nav.orders}">Pedidos</a>
+                    <a th:href="@{/user/profile}" th:text="#{nav.profile}">Perfil</a>
+                    <a th:href="@{/user/orders}" th:text="#{nav.orders}">Pedidos</a>
                     <form th:action="@{/logout}" method="post" id="logoutForm">
                         <button type="submit" class="logout-button" th:text="#{nav.logout}">Cerrar sesión</button>
                     </form>
@@ -85,14 +92,13 @@
 <section class="cart-container">
     <h1 th:text="#{cart.title}"></h1>
 
-    <!-- Mensaje si el carrito está vacío -->
     <div th:if="${cartItems.isEmpty()}">
         <p th:text="#{cart.empty}"></p>
     </div>
     <div th:if="${error != null}" style="color: red; font-weight: bold;">
         <p th:text="${error}"></p>
     </div>
-    <!-- Carrito con productos -->
+
     <div th:if="${not cartItems.isEmpty()}">
         <form th:action="@{/user/cart/update}" method="post">
             <table class="cart-table">
@@ -107,28 +113,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Itera sobre los items del carrito -->
+
                 <tr th:each="item : ${cartItems}">
-                    <!-- Nombre del producto -->
+
                     <td th:text="${item.product.name}"></td>
 
-                    <!-- Precio del producto -->
                     <td th:text="${item.product.price}"></td>
 
-                    <!-- Input para modificar la cantidad -->
                     <td>
                         <input type="number" name="quantities[]" th:value="${item.quantity}" min="1" required />
                     </td>
 
-                    <!-- Total por producto (precio * cantidad) -->
                     <td th:text="${item.product.price * item.quantity}"></td>
 
-                    <!-- Detalles de personalización (opcional) -->
                     <td>
                         <textarea name="details[]" rows="4" cols="50" th:text="${item.details}"></textarea>
                     </td>
                     <input type="hidden" name="cartItemIds[]" th:value="${item.id}" />
-                    <!-- Enlace para eliminar un artículo -->
+
                     <td>
                         <a th:href="@{/user/cart/remove/{id}(id=${item.id})}" class="delete-btn">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -140,19 +142,15 @@
                 </tbody>
             </table>
 
-            <!-- Total del carrito -->
             <div class="cart-total">
                 <h3>Total: $<span th:text="${totalPrice}"></span></h3>
             </div>
 
-            <!-- ID del usuario (oculto) -->
             <input type="hidden" name="userCc" th:value="${userCc}">
 
-            <!-- Botón para actualizar carrito -->
             <button type="submit" class="btn btn-secondary" th:text="#{cart.update}"></button>
         </form>
 
-        <!-- Botón para proceder al checkout -->
         <div class="checkout">
 
             <a th:href="@{/user/preview(userCc=${userCc})}" class="checkout-btn" th:text="#{cart.checkout}"></a>
@@ -174,8 +172,8 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../../js/menu_toggle.js"></script>
-<script src="../../js/perfil_dropdown.js"></script>
-<script src="../../js/languagedropdown.js"></script>
+<script th:src="@{/js/menu_toggle.js}"></script>
+<script th:src="@{/js/perfil_dropdown.js}"></script>
+<script th:src="@{/js/languagedropdown.js}"></script>
 </body>
 </html>

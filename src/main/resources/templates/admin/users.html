@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="../img/logo.png" type="image/png">
-    <script src="/js/menu_toggle.js"></script>
+    <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
+    <script th:src="@{/js/menu_toggle.js}"></script>
     <title>Lista de Usuarios</title>
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img src="../img/logo.png" class="logo">
+        <img th:src="@{/img/logo.png}" alt="Logo" class="logo">
     </div>
     <nav>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>

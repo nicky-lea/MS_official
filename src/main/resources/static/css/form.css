@@ -1,55 +1,52 @@
-/* Estilos generales para los formularios */
+
 form {
-    max-width: 600px; /* Máximo ancho del formulario */
-    margin: 20px auto; /* Centra el formulario en la página */
-    padding: 20px; /* Espaciado interno */
-    border: 1px solid #ced4da; /* Borde del formulario */
-    border-radius: 5px; /* Esquinas redondeadas */
-    background-color: #f8f9fa; /* Color de fondo */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para los encabezados del formulario */
 form h2 {
-    font-family: 'Merriweather', sans-serif; /* Fuente para los encabezados */
-    font-weight: 700; /* Negrita */
-    color: #343a40; /* Color del texto */
-    margin-bottom: 20px; /* Espaciado inferior */
+    font-family: 'Merriweather', sans-serif;
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 20px;
 }
 
-/* Estilos para los campos de entrada */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"],
 form textarea {
-    width: 100%; /* Ancho completo */
-    padding: 10px; /* Espaciado interno */
-    margin-bottom: 15px; /* Espaciado inferior */
-    border: 1px solid #ced4da; /* Borde del campo */
-    border-radius: 5px; /* Esquinas redondeadas */
-    font-size: 16px; /* Tamaño de fuente */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
-/* Estilos para los botones */
+
 form button {
-    width: 100%; /* Ancho completo */
-    padding: 10px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    background-color: #71359c; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Esquinas redondeadas */
-    cursor: pointer; /* Cambiar cursor al pasar el ratón */
-    transition: background-color 0.3s; /* Transición suave */
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #71359c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 form button:hover {
-    background-color: #d696dd; /* Color al pasar el ratón */
+    background-color: #d696dd;
 }
 
-/* Estilos para los mensajes de error */
 .error-message {
-    color: #dc3545; /* Color rojo para los errores */
-    font-size: 14px; /* Tamaño de fuente */
-    margin-bottom: 15px; /* Espaciado inferior */
+    color: #dc3545;
+    font-size: 14px;
+    margin-bottom: 15px;
 }

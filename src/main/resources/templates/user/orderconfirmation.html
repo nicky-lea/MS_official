@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación de Pedido</title>
-    <link rel="stylesheet" th:href="@{/css/order.css}"> <!-- Asegúrate de incluir el CSS adecuado -->
+    <link rel="stylesheet" th:href="@{/css/order.css}">
 </head>
 <body>
 <div class="confirmation-container">
@@ -26,8 +26,8 @@
     </div>
 
     <div class="action-buttons">
-        <a href="/" class="button" th:text="#{go_to_home}"></a>
-        <a href="/user/orders" class="button" th:text="#{view_orders}"></a>
+        <a th:href="@{/}" class="button" th:text="#{go_to_home}"></a>
+        <a th:href="@{/user/orders}" class="button" th:text="#{view_orders}"></a>
         <a href="https://wa.me/573008020893" class="button" th:text="#{whatsapp_link}"></a>
     </div>
 </div>

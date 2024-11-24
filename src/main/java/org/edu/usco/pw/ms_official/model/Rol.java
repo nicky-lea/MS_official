@@ -37,4 +37,7 @@ public class Rol {
     @Schema(description = "Lista de usuarios asignados a este rol")
     @ArraySchema(schema = @Schema(implementation = UserEntity.class))
     private List<UserEntity> users = new ArrayList<>();
+    public Rol(String name) {
+        this.name = name;
+    }
 }

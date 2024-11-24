@@ -4,11 +4,9 @@ package org.edu.usco.pw.ms_official.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.edu.usco.pw.ms_official.model.OrderEntity;
-import org.edu.usco.pw.ms_official.model.ProductEntity;
-import org.edu.usco.pw.ms_official.model.Rol;
-import org.edu.usco.pw.ms_official.model.UserEntity;
+import org.edu.usco.pw.ms_official.model.*;
 import org.edu.usco.pw.ms_official.repository.OrderRepository;
+import org.edu.usco.pw.ms_official.repository.ProductRepository;
 import org.edu.usco.pw.ms_official.service.OrderService;
 import org.edu.usco.pw.ms_official.service.ProductService;
 import org.edu.usco.pw.ms_official.service.UserService;
@@ -46,6 +44,9 @@ public class AdminController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     /**
      * Muestra la página principal del administrador.
@@ -417,13 +418,28 @@ public class AdminController {
     @PostMapping("/order/updateStatus")
     public String updateOrderStatus(@RequestParam Long orderId, @RequestParam String status) {
         try {
+            // Obtener la orden por su ID
             Optional<OrderEntity> orderOptional = orderRepository.findById(orderId);
             if (orderOptional.isEmpty()) {
                 return "redirect:/admin/orders?error=notfound";
             }
+
             OrderEntity order = orderOptional.get();
+            String oldStatus = order.getStatus();
+
             order.setStatus(status);
             orderRepository.save(order);
+
+            if ("REFUND".equals(status) && !"REFUND".equals(oldStatus)) {
+                for (OrderDetailsEntity orderDetail : order.getOrderDetails()) {
+                    ProductEntity product = orderDetail.getProduct();
+                    int quantity = orderDetail.getQuantity();
+
+                    product.setStock(product.getStock() + quantity);
+
+                    productRepository.save(product);
+                }
+            }
 
             return "redirect:/admin/orders?success=true";
         } catch (Exception e) {
@@ -431,6 +447,7 @@ public class AdminController {
             return "redirect:/admin/orders?error=true";
         }
     }
+
 
 }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login.css"> <!-- Asegúrate de que la ruta sea correcta -->
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
     <title>Registro</title>
     <!--Start of Tawk.to Script-->
@@ -18,34 +18,47 @@
             s0.parentNode.insertBefore(s1,s0);
         })();
     </script>
-    <!--End of Tawk.to Script-->
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="../img/logo.png" alt="Logo" class="logo"> <!-- Cambia el nombre del logo -->
-        </div>
-    </header>
-    <main>
-        <div class="form-container">
-            <h2>Registro</h2>
-            <form th:action="@{/register}" method="POST" class="form">
-                <input type="text" id="cc" name="cc" autocomplete="off" placeholder="Documento de identidad" required>
-                <input type="text" id="name" name="name" autocomplete="off" placeholder="Nombre" required>
+<header>
+    <div class="logo-container">
+        <img src="../img/logo.png" alt="Logo de la página" class="logo">
+    </div>
+</header>
+<main>
+    <div class="form-container">
+        <h2 th:text="#{register.title}">Registro</h2>
+        <form th:action="@{/register}" method="POST" class="form">
 
-                <input type="email" id="email" name="email" autocomplete="off" placeholder="Email" required>
+            <div class="error" th:if="${error == 'error.cc.invalid'}" th:text="#{error.cc.invalid}"></div>
+            <input type="text" id="cc" name="cc" autocomplete="off"
+                   th:placeholder="#{placeholder.cc}" required>
 
-                <input type="password" id="password" name="password"  autocomplete="off" placeholder="Contraseña" required>
+            <div class="error" th:if="${error == 'error.name.invalid'}" th:text="#{error.name.invalid}"></div>
+            <input type="text" id="name" name="name" autocomplete="off"
+                   th:placeholder="#{placeholder.name}" required>
 
-                <input type="text" id="phone" name="phone" autocomplete="off" placeholder="Teléfono">
+            <input type="email" id="email" name="email" autocomplete="off"
+                   th:placeholder="#{placeholder.email}" required>
 
-                <input type="text" id="address" name="address" autocomplete="off" placeholder="Dirección">
+            <div class="error" th:if="${error == 'error.password.invalid'}" th:text="#{error.password.invalid}"></div>
+            <input type="password" id="password" name="password" autocomplete="off"
+                   th:placeholder="#{placeholder.password}" required>
 
-                <button type="submit" class="btn-primary">Registrar</button>
-            </form>
-            <p>¿Ya tienes una cuenta? <a href="/iniciar">Inicia sesión</a></p>
-            <p>Volver al inicio <a href="/"> Home </a></p>
-        </div>
-    </main>
+            <div class="error" th:if="${error == 'error.phone.invalid'}" th:text="#{error.phone.invalid}"></div>
+            <input type="text" id="phone" name="phone" autocomplete="off"
+                   th:placeholder="#{placeholder.phone}" required>
+
+            <div class="error" th:if="${error == 'error.address.invalid'}" th:text="#{error.address.invalid}"></div>
+            <input type="text" id="address" name="address" autocomplete="off"
+                   th:placeholder="#{placeholder.address}" required>
+
+            <button type="submit" class="btn-primary">Registrar</button>
+        </form>
+        <p><a th:href="@{/iniciar}" th:text="#{login.login}"></a></p>
+        <p><a th:href="@{/}" th:text="#{login.home}"></a></p>
+    </div>
+</main>
+
 </body>
 </html>

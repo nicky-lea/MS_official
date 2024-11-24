@@ -10,6 +10,8 @@ import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 @Data
@@ -48,8 +50,19 @@ public class ProductEntity {
     @Schema(description = "Fecha y hora de creación del producto", example = "2024-11-01T12:30:00")
     private LocalDateTime creationDate;
 
+    @Transient
+    private boolean outOfStock;
+
+    @Transient
+    private String descriptionGeneral;
+
+    @Transient
+    private List<String> features;
+
     @Schema(description = "Obtiene el precio del producto formateado sin ceros a la derecha", example = "1200.5")
     public String getFormattedPrice() {
         return price.stripTrailingZeros().toPlainString();
     }
+
+
 }

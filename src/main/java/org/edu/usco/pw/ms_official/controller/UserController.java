@@ -77,17 +77,31 @@ public class UserController {
      *
      * Este método permite obtener y mostrar todos los productos disponibles, con la opción de
      * ordenarlos según el criterio seleccionado por el usuario (por ejemplo, por nombre o precio).
-     * Si no se especifica una opción de orden, se usa la opción por defecto "name:asc" (orden ascendente por nombre).
+     * Si no se especifica una opción de orden, se usa la opción por defecto "name:asc"
+     * (orden ascendente por nombre).
+     *
+     * Además, divide la descripción de cada producto en dos partes:
+     * - Una descripción general.
+     * - Una lista de características, separadas por puntos.
+     * Si el producto no tiene descripción, estos campos permanecen vacíos.
      *
      * @param sortOption Opción de orden que define el criterio de orden y dirección (por ejemplo, "name:asc").
      *                   Si no se proporciona, se utiliza "name:asc" por defecto.
-     * @param model Modelo para pasar los productos ordenados a la vista.
+     * @param model Modelo para pasar los productos ordenados y sus atributos adicionales a la vista.
      * @return La vista que muestra la lista de productos ordenados.
      */
-    @Operation(summary = "Lista de productos", description = "Muestra todos los productos disponibles, ordenados según el criterio seleccionado por el usuario.")
+
+    @Operation(
+            summary = "Obtener lista de productos",
+            description = """
+                  Devuelve una lista de productos ordenados según el criterio seleccionado por el usuario. 
+                  La descripción de cada producto se divide en una parte general y una lista de características 
+                  (separadas por puntos).
+                  """
+    )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista de productos cargada correctamente"),
-            @ApiResponse(responseCode = "500", description = "Error al cargar los productos")
+            @ApiResponse(responseCode = "200", description = "Lista de productos cargada correctamente."),
+            @ApiResponse(responseCode = "500", description = "Error interno al cargar los productos.")
     })
     @GetMapping("products")
     public String listProducts(@RequestParam(value = "sortOption", required = false, defaultValue = "name:asc") String sortOption,
@@ -97,10 +111,30 @@ public class UserController {
         String order = sortParams[1];
 
         List<ProductEntity> products = productService.getAllProductsSorted(sortBy, order);
+
+        for (ProductEntity product : products) {
+            if (product.getStock() <= 0) {
+                product.setOutOfStock(true);
+            }
+
+            String[] descriptionParts = splitDescription(product.getDescription());
+            if (descriptionParts.length > 0) {
+                product.setDescriptionGeneral(descriptionParts[0]);
+                if (descriptionParts.length > 1) {
+                    product.setFeatures(Arrays.asList(Arrays.copyOfRange(descriptionParts, 1, descriptionParts.length)));
+                }
+            }
+        }
+
         model.addAttribute("productList", products);
         model.addAttribute("currentSortOption", sortOption);
         return "user/productos";
     }
+
+    private String[] splitDescription(String description) {
+        return description != null ? description.split("(?<=\\.)\\s+") : new String[]{};
+    }
+
 
     /**
      * Muestra el perfil del usuario autenticado.
@@ -424,8 +458,13 @@ public class UserController {
     /**
      * Crea un nuevo pedido para un usuario, utilizando la información del carrito de compras.
      *
-     * Este método primero verifica si el usuario existe y si no tiene un pedido pendiente. Luego, crea una nueva orden con la información proporcionada,
-     * incluye los detalles de los productos del carrito de compras y finalmente limpia el carrito del usuario.
+     * Este método realiza varias comprobaciones antes de crear el pedido:
+     * 1. Verifica si el usuario existe.
+     * 2. Comprueba si el usuario ya tiene un pedido pendiente.
+     * 3. Si todo está correcto, crea una nueva orden con los productos del carrito y ajusta el inventario.
+     * 4. Limpia el carrito de compras del usuario después de procesar el pedido.
+     *
+     * El método maneja también los errores de stock insuficiente y pedidos pendientes, redirigiendo al usuario al carrito en caso de errores.
      *
      * @param redirectAttributes Atributos de redirección para mensajes flash.
      * @param locale Localización de los mensajes de error.
@@ -438,11 +477,12 @@ public class UserController {
      * @param totalPrice Precio total del pedido.
      * @return Redirección a la vista del pedido recién creado si todo sale bien, o al carrito de compras si hay errores.
      */
-    @Operation(summary = "Crear un pedido", description = "Crea un nuevo pedido para un usuario con la información proporcionada desde el carrito de compras.")
+    @Operation(summary = "Crear un pedido", description = "Crea un nuevo pedido para un usuario con la información proporcionada desde el carrito de compras. Verifica si el usuario existe, si tiene un pedido pendiente y ajusta el inventario antes de crear la orden.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pedido creado correctamente"),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado"),
             @ApiResponse(responseCode = "400", description = "Pedido pendiente ya existente"),
+            @ApiResponse(responseCode = "400", description = "Stock insuficiente para uno o más productos en el carrito"),
             @ApiResponse(responseCode = "500", description = "Error al crear el pedido")
     })
     @PostMapping("/makeorder")
@@ -483,12 +523,27 @@ public class UserController {
 
         List<CartEntity> cartItems = cartService.getCartItemsForUser(userCc);
 
+
         for (CartEntity cartItem : cartItems) {
+            ProductEntity product = cartItem.getProduct();
+            int quantity = cartItem.getQuantity();
+
+
+            if (product.getStock() >= quantity) {
+                product.setStock(product.getStock() - quantity);
+                productService.save(product);
+            } else {
+
+                String errorMessage = messageSource.getMessage("insufficient_stock", null, locale);
+                model.addAttribute("error", errorMessage);
+                return "redirect:/user/cart";
+            }
+
             OrderDetailsEntity orderDetail = new OrderDetailsEntity();
             orderDetail.setOrder(order);
-            orderDetail.setProduct(cartItem.getProduct());
-            orderDetail.setQuantity(cartItem.getQuantity());
-            orderDetail.setUnitPrice(cartItem.getProduct().getPrice());
+            orderDetail.setProduct(product);
+            orderDetail.setQuantity(quantity);
+            orderDetail.setUnitPrice(product.getPrice());
             orderDetail.setDetails(cartItem.getDetails());
 
             orderService.saveOrderDetail(orderDetail);
@@ -499,6 +554,7 @@ public class UserController {
         model.addAttribute("order", order);
         return "redirect:/user/order?orderId=" + order.getId();
     }
+
 
     /**
      * Muestra la confirmación de un pedido.
@@ -635,9 +691,36 @@ public class UserController {
     })
     @PostMapping("/cancelOrder/{Id}")
     public String cancelOrder(@PathVariable Long Id) {
-        orderService.cancelOrder(Id);
+
+        Optional<OrderEntity> orderOpt = orderRepository.findById(Id);
+        if (orderOpt.isEmpty()) {
+            return "redirect:/user/orders";
+        }
+
+        OrderEntity order = orderOpt.get();
+
+
+        if (!"PENDING".equals(order.getStatus())) {
+
+            return "redirect:/user/orders";
+        }
+
+        List<OrderDetailsEntity> orderDetails = orderDetailsRepository.findByOrder(order);
+
+        for (OrderDetailsEntity detail : orderDetails) {
+            ProductEntity product = detail.getProduct();
+            int quantity = detail.getQuantity();
+
+            product.setStock(product.getStock() + quantity);
+            productService.save(product);
+        }
+
+        order.setStatus("CANCELLED");
+        orderRepository.save(order);
+
         return "redirect:/user/orders";
     }
+
 
 
 }

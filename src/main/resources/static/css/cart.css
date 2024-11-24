@@ -1,4 +1,4 @@
-/* Contenedor principal del carrito */
+
 .cart-container {
     display: flex;
     flex-direction: column;
@@ -9,18 +9,16 @@
     font-family: 'Merriweather', serif;
 }
 
-/* Encabezado */
 .cart-container h1 {
     text-align: center;
     font-size: 28px;
-    margin: 0 0 20px;
+    margin-bottom: 20px;
+}
+
+.title {
     color: #674188;
 }
 
-.title{
-    color: #674188;
-}
-/* Tabla del carrito */
 .cart-table {
     width: 100%;
     max-width: 800px;
@@ -56,7 +54,6 @@
     border-radius: 4px;
 }
 
-/* Botón de eliminar artículo */
 .cart-table td .delete-btn {
     background-color: transparent;
     color: #674188;
@@ -70,7 +67,6 @@
     color: #5a3672;
 }
 
-/* Total y checkout */
 .cart-total {
     font-size: 22px;
     font-weight: bold;
@@ -83,9 +79,10 @@
     text-align: center;
     margin-top: 20px;
 }
- .delete-btn{
-     text-decoration: none;
- }
+
+.delete-btn {
+    text-decoration: none;
+}
 
 .checkout-btn {
     text-decoration: none;
@@ -103,24 +100,20 @@
     background-color: #5a3672;
 }
 
-/* Mensaje de carrito vacío */
+
 .cart-container p {
     text-align: center;
     font-size: 1.2rem;
     color: #5a3672;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .cart-table, .cart-total, .checkout {
         width: 100%;
     }
 
-    .cart-total {
-        text-align: left;
-    }
-
-    .checkout {
+    .cart-total, .checkout {
         text-align: left;
     }
 }
@@ -139,44 +132,27 @@
         padding: 8px 16px;
     }
 }
-input{
+
+
+input, textarea {
     color: #674188;
-}
-input:focus{
-    color: #674188;
-    outline: none; /* Elimina el borde de enfoque predeterminado */
-    border-color: #F7EFE5; /* Borde verde al hacer foco */
-    background-color: #F7EFE5; /* Fondo blanco al hacer foco */
-    box-shadow: 0 0 8px rgb(113, 53, 156); /* Sombra verde suave */
-}
-/* Mejorando el estilo del textarea */
-textarea {
-    color: #674188;
-    width: 100%; /* El textarea ocupará todo el ancho disponible */
-    padding: 10px; /* Agrega espacio alrededor del texto dentro del textarea */
-    font-size: 16px; /* Tamaño adecuado para el texto */
-    border: 1px solid #ccc; /* Borde suave */
-    border-radius: 8px; /* Bordes redondeados para un diseño moderno */
-    background-color: #F7EFE5; /* Fondo suave y claro */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
-    resize: vertical; /* Permite que el textarea se redimensione verticalmente */
-    transition: all 0.3s ease; /* Transición suave al interactuar */
+    border-radius: 8px;
+    background-color: #F7EFE5;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
 }
 
-/* Estilo cuando el textarea está enfocado */
-textarea:focus {
-    color: #674188;
-    outline: none; /* Elimina el borde de enfoque predeterminado */
-    border-color: #F7EFE5; /* Borde verde al hacer foco */
-    background-color: #F7EFE5; /* Fondo blanco al hacer foco */
-    box-shadow: 0 0 8px rgb(113, 53, 156); /* Sombra verde suave */
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #F7EFE5;
+    box-shadow: 0 0 8px rgb(113, 53, 156);
 }
 
-/* Estilo para la etiqueta */
 label {
-    font-size: 14px; /* Tamaño adecuado para la etiqueta */
-    font-weight: bold; /* Texto en negrita */
-    color: #333; /* Color oscuro para la etiqueta */
-    margin-bottom: 8px; /* Espacio debajo de la etiqueta */
-    display: block; /* Asegura que la etiqueta ocupe todo el ancho */
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
 }

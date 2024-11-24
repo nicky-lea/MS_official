@@ -20,6 +20,10 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio encargado de gestionar las operaciones relacionadas con los productos en el sistema.
+ * Proporciona métodos para crear, actualizar, eliminar, buscar productos y ordenar los productos.
+ */
 @Service
 public class ProductService {
 
@@ -27,59 +31,89 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
     private final String UPLOAD_DIR = "src/main/resources/static/img/";
 
-    public List<ProductEntity> getAllProducts() {
-        logger.info("Obteniendo todos los usuarios");
-        return productRepository.findAll();
-    }
-
+    /**
+     * Obtiene un producto por su ID.
+     *
+     * @param id el ID del producto a buscar.
+     * @return el producto correspondiente al ID, o null si no se encuentra.
+     */
     public ProductEntity getProductById(Long id) {
         Optional<ProductEntity> productOptional = productRepository.findById(id);
-        return productOptional.orElse(null); // Retorna el producto o null si no se encuentra
+        return productOptional.orElse(null);
     }
 
+    /**
+     * Guarda un nuevo producto o actualiza uno existente.
+     *
+     * @param product el producto a guardar.
+     * @return el producto guardado.
+     */
     public ProductEntity save(ProductEntity product) {
         return productRepository.save(product);
     }
-    public ProductEntity updateProduct(Long id, ProductEntity product, MultipartFile file) throws IOException {
 
-        // Obtener el producto existente
+    /**
+     * Actualiza un producto existente por su ID.
+     * Si se proporciona una nueva imagen, se guarda en el directorio correspondiente.
+     *
+     * @param id el ID del producto a actualizar.
+     * @param product el producto con los nuevos datos.
+     * @param file el archivo de imagen que se desea asociar al producto (puede ser nulo).
+     * @return el producto actualizado.
+     * @throws IOException si ocurre un error al guardar la imagen.
+     */
+    public ProductEntity updateProduct(Long id, ProductEntity product, MultipartFile file) throws IOException {
         ProductEntity existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
 
         if (file != null && !file.isEmpty()) {
-
-            // Guardar la nueva imagen y actualizar la ruta
             String filename = StringUtils.cleanPath(file.getOriginalFilename());
             Path imagePath = Paths.get(UPLOAD_DIR + filename);
-
-            // Asegúrate de que el directorio de carga exista
             Files.copy(file.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
-            product.setImageUrl("/img/" + filename); // Establecer la nueva ruta de la imagen
+            product.setImageUrl("/img/" + filename);
         } else {
-            // Si no se proporciona una nueva imagen, conservar la existente
             product.setImageUrl(existingProduct.getImageUrl());
         }
 
-        // Actualizar otros campos del producto
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setStock(product.getStock());
-        return productRepository.save(existingProduct); // Guardar los cambios
+
+        return productRepository.save(existingProduct);
     }
 
+    /**
+     * Elimina un producto por su ID.
+     *
+     * @param id el ID del producto a eliminar.
+     */
     public void deleteProduct(Long id) {
         ProductEntity product = getProductById(id);
         productRepository.delete(product);
     }
 
+    /**
+     * Obtiene todos los productos, ordenados por un campo y en un orden específico.
+     *
+     * @param sortBy el campo por el que ordenar los productos.
+     * @param order el orden de la clasificación ("asc" para ascendente, "desc" para descendente).
+     * @return una lista de productos ordenada según los parámetros proporcionados.
+     */
     public List<ProductEntity> getAllProductsSorted(String sortBy, String order) {
         Sort sort = order.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         return productRepository.findAll(sort);
     }
-    // Método para buscar productos por nombre o descripción con coincidencias parciales
+
+    /**
+     * Busca productos por su nombre o descripción.
+     *
+     * @param searchTerm el término de búsqueda utilizado para buscar productos en el nombre o descripción.
+     * @return una lista de productos que coinciden con el término de búsqueda.
+     */
     public List<ProductEntity> searchByNameOrDescription(String searchTerm) {
         if (searchTerm != null && !searchTerm.isEmpty()) {
             return productRepository.searchByNameOrDescription(searchTerm);
@@ -88,7 +122,12 @@ public class ProductService {
         }
     }
 
-    // Método para buscar un producto por ID
+    /**
+     * Obtiene un producto por su ID en una lista, devolviendo una lista vacía si no se encuentra.
+     *
+     * @param id el ID del producto a buscar.
+     * @return una lista con el producto si se encuentra, o una lista vacía si no se encuentra.
+     */
     public List<ProductEntity> getProductoById(Long id) {
         return productRepository.findById(id).map(List::of).orElse(List.of());
     }

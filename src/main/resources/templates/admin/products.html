@@ -3,15 +3,15 @@
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="../img/logo.png" type="image/png">
-    <script src="js/menu_toggle.js"></script>
+    <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
+    <script th:src="@{/js/menu_toggle.js}"></script>
     <meta charset="UTF-8">
     <title>Lista de Productos</title>
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img src="../img/logo.png" class="logo">
+        <img th:src="@{/img/logo.png}" alt="Logo" class="logo">
     </div>
     <nav>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
@@ -20,7 +20,7 @@
             <li><a th:href="@{/admin/users}">Usuarios</a></li>
             <li><a th:href="@{/admin/orders}">Pedidos</a></li>
             <li><a th:href="@{/admin/products}">Productos</a></li>
-            <li><a th:href="@{/admin/reports}">Reportes</a></li>
+            <li><a th:href="@{/admin/report}">Reportes</a></li>
         </ul>
         <ul class="buttons">
             <li><form th:action="@{/logout}" method="post">
@@ -36,7 +36,7 @@
         <input type="number" id="searchById" name="searchById" placeholder="Buscar por ID" class="search-input" />
         <button type="submit" class="button-search">Buscar</button>
     </form>
-    <a href="/admin/products/new" class="button-create">Nuevo Producto</a>
+    <a th:href="@{/admin/products/new}" class="button-create">Nuevo Producto</a>
 </div>
 <table>
     <tr>

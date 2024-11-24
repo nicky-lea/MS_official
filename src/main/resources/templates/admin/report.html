@@ -43,16 +43,14 @@
 </form>
 
 <script>
-    // Función para mostrar u ocultar los campos según la opción seleccionada
+
     function updateForm() {
         const dateType = document.getElementById("dateType").value;
 
-        // Asegúrate de ocultar los campos que no se necesitan
         document.getElementById("dayInput").style.display = dateType === "day" ? "block" : "none";
         document.getElementById("monthInput").style.display = dateType === "month" ? "block" : "none";
         document.getElementById("yearInput").style.display = dateType === "year" ? "block" : "none";
 
-        // Eliminar el atributo required de los campos no visibles
         const inputs = document.querySelectorAll(".date-input input");
         inputs.forEach(input => {
             if (input.closest('.date-input').style.display === "none") {
@@ -63,7 +61,6 @@
         });
     }
 
-    // Inicializar el formulario para que la "Fecha Específica" sea visible por defecto
     document.addEventListener("DOMContentLoaded", function() {
         updateForm();
     });

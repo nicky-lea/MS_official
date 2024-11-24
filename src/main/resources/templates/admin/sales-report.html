@@ -12,12 +12,10 @@
   <div id="reportContent">
     <h1>Reporte de Ventas</h1>
 
-    <!-- Resumen del reporte -->
     <div>
       <p><strong>Total de Artículos Vendidos:</strong> <span id="totalItems" th:text="${reportData.size()}">0</span></p>
     </div>
 
-    <!-- Tabla con los detalles del reporte -->
     <table id="salesTable" border="1">
       <thead>
       <tr>
@@ -28,9 +26,9 @@
       </thead>
       <tbody>
       <tr th:each="row : ${reportData}">
-        <td th:text="${row[0]}">Producto</td> <!-- Nombre del producto -->
-        <td th:text="${row[1]}">Cantidad</td> <!-- Cantidad vendida -->
-        <td th:text="${row[2]}">Total</td> <!-- Total en dinero -->
+        <td th:text="${row[0]}">Producto</td>
+        <td th:text="${row[1]}">Cantidad</td>
+        <td th:text="${row[2]}">Total</td>
       </tr>
       </tbody>
     </table>
@@ -52,61 +50,60 @@
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
-      // Agregar logo (asegúrate de usar una URL de imagen o convertirla a base64)
-      const logoUrl = '/../../img/logo.png'; // Puedes usar una URL o un string en base64
-      doc.addImage(logoUrl, 'PNG', 9, 10, 20, 20); // 10, 10 son las coordenadas, 30, 30 el tamaño del logo
+
+      const logoUrl = '/../../img/logo.png';
+      doc.addImage(logoUrl, 'PNG', 9, 10, 20, 20);
       let yOffset = 50;
-      // Título del reporte con nombre del producto
+
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
-      doc.text("Reporte de Ventas - M&S", 50, 20); // Puedes personalizar el nombre del producto aquí
+      doc.text("Reporte de Ventas - M&S", 50, 20);
 
-      // Información de resumen
+
       doc.setFontSize(12);
       doc.setFont('helvetica', 'normal');
       doc.text(`Total de Artículos Vendidos: ${totalItems}`, 20, 30);
       doc.text(`Total General (Dinero): $${totalSales}`, 20, 40);
 
-      // Espacio antes de la tabla
+
       yOffset = 50;
 
-      // Encabezados de la tabla
+
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
-      doc.rect(20, yOffset, 170, 10); // Caja de fondo para encabezado
+      doc.rect(20, yOffset, 170, 10);
       doc.text("Producto", 22, yOffset + 7);
       doc.text("Cantidad Vendida", 90, yOffset + 7);
       doc.text("Total por Producto", 150, yOffset + 7);
 
-      // Línea horizontal después del encabezado
+
       doc.line(20, yOffset + 10, 190, yOffset + 10);
 
-      // Filas de la tabla
+
       yOffset += 10;
       const rows = document.querySelectorAll('#salesTable tbody tr');
       rows.forEach(row => {
         const cols = row.querySelectorAll('td');
 
-        // Dibujar cada fila
-        doc.setFont('helvetica', 'normal');
-        doc.rect(20, yOffset, 170, 10); // Caja de fondo para fila
-        doc.text(cols[0].innerText, 22, yOffset + 7);          // Producto
-        doc.text(cols[1].innerText, 90, yOffset + 7);          // Cantidad
-        doc.text(cols[2].innerText, 150, yOffset + 7);         // Total por Producto
 
-        // Línea horizontal entre filas
+        doc.setFont('helvetica', 'normal');
+        doc.rect(20, yOffset, 170, 10);
+        doc.text(cols[0].innerText, 22, yOffset + 7);
+        doc.text(cols[1].innerText, 90, yOffset + 7);
+        doc.text(cols[2].innerText, 150, yOffset + 7);
+
+
         doc.line(20, yOffset + 10, 190, yOffset + 10);
 
-        // Espacio para la siguiente fila
         yOffset += 10;
       });
 
-      // Total general
+
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.text(`Total General: $${totalSales}`, 20, yOffset + 10);
 
-      // Guardar el PDF
+
       doc.save('Reporte-de-Ventas.pdf');
     });
   });

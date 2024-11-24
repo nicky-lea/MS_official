@@ -9,20 +9,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Centra verticalmente */
+    height: 100vh;
     text-align: center;
 }
 
 h1 {
     color: #674188;
-    font-size: 48px; /* Tamaño del título */
-    margin-bottom: 20px; /* Espaciado inferior */
+    font-size: 48px;
+    margin-bottom: 20px;
 }
 
 p {
-    font-size: 18px; /* Tamaño del texto */
-    color: #333; /* Color del texto */
-    margin-bottom: 40px; /* Espaciado inferior */
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 40px;
 }
 
 .btn {
@@ -39,22 +39,22 @@ p {
     background-color: #d3b3ca;
 }
 
-/* Estilos para el scrollbar */
+
 ::-webkit-scrollbar {
-    width: 12px; /* Ancho de la barra */
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #674188; /* Color de la barra de desplazamiento */
-    border-radius: 10px; /* Bordes redondeados */
+    background-color: #674188;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+    background-color: #5a3672;
 }
 
-/* Para Firefox */
+
 * {
-    scrollbar-width: thin; /* Estilo del scrollbar */
-    scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+    scrollbar-width: thin;
+    scrollbar-color: #674188 #F7EFE5;
 }

@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/table.css}"/>
-    <link rel="stylesheet" href="../css/index_admin.css">
+    <link rel="stylesheet" th:href="@{/css/index_admin.css}">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="../img/logo.png" type="image/png">
-    <script src="js/menu_toggle.js"></script>
+    <link rel="icon" th:href="@{/img/logo.png}" type="image/png">
+    <script th:src="@{/js/menu_toggle.js}"></script>
     <title>Orders - Admin</title>
     <style>
         .details { display: none; }
@@ -17,7 +17,7 @@
 <body>
 <header>
     <div class="logo-container">
-        <img src="../img/logo.png" class="logo">
+        <img th:src="@{/img/logo.png}" alt="Logo" class="logo">
     </div>
     <nav>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
@@ -26,7 +26,7 @@
             <li><a th:href="@{/admin/users}">Usuarios</a></li>
             <li><a th:href="@{/admin/orders}">Pedidos</a></li>
             <li><a th:href="@{/admin/products}">Productos</a></li>
-            <li><a th:href="@{/admin/reports}">Reportes</a></li>
+            <li><a th:href="@{/admin/report}">Reportes</a></li>
         </ul>
         <ul class="buttons">
             <li><form th:action="@{/logout}" method="post">
@@ -37,28 +37,23 @@
 </header>
 <h2>Lista de Pedidos</h2>
 
-<!-- Mensaje si no se encuentran pedidos -->
 <div th:if="${message}">
     <p class="message" th:text="${message}"></p>
 </div>
 
-<!-- Filtro y ordenación -->
 <div class="search-container">
     <form method="get" class="sort-button">
 
         <input type="text" name="userCc" id="userCc" class="search-input" placeholder="Buscar por usuario">
         <input type="text" name="orderId" id="orderId" class="search-input" placeholder="Buscar por id de orden">
-
         <select name="sort">
             <option value="id">Ordenar por ID</option>
             <option value="cc">Ordenar por CC de Usuario</option>
         </select>
-
         <button type="submit" class="button-search">Filtrar</button>
     </form>
 </div>
 
-<!-- Lista de pedidos -->
 <table>
     <thead>
     <tr>
@@ -90,7 +85,6 @@
             </ul>
         </td>
         <td>
-            <!-- Botón para mostrar la información del usuario (name, email, phone) -->
             <button class="button-link toggleUserDetails" th:data-id="${order.userCc}" type="button">Mostrar Información del Usuario</button>
             <div class="userDetails" th:id="'userDetails_' + ${order.userCc}">
                 <p>Nombre: <span th:text="${order.user.name}"></span></p>
@@ -108,7 +102,6 @@
                 </select>
                 <button type="submit" class="btn btn-primary mt-1">Actualizar estado</button>
             </form>
-
 
             <button class="button-link toggleDetails" th:data-id="${order.id}" type="button">Mostrar Detalles</button>
             <div class="details" th:id="'details_' + ${order.id}">
@@ -138,7 +131,6 @@
 </table>
 
 <script>
-    // Script para mostrar/ocultar los detalles de los productos
     document.querySelectorAll('.toggleDetails').forEach(button => {
         button.addEventListener('click', function() {
             const orderId = this.getAttribute('data-id');
@@ -147,7 +139,6 @@
         });
     });
 
-    // Script para mostrar/ocultar la información del usuario
     document.querySelectorAll('.toggleUserDetails').forEach(button => {
         button.addEventListener('click', function() {
             const userCc = this.getAttribute('data-id');
@@ -156,38 +147,6 @@
         });
     });
 </script>
-<script>
-    function updateOrderStatus(selectElement, orderId) {
-        const newStatus = selectElement.value;
-
-        console.log("Actualizando el estado de la orden:", orderId, "a", newStatus);
-
-        fetch('/admin/order/updateStatus', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `orderId=${orderId}&status=${encodeURIComponent(newStatus)}`
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert("Estado actualizado correctamente.");
-                    // Redirigir a la lista de órdenes o actualizar la vista
-                    window.location.href = "/admin/orders";
-                } else {
-                    return response.text().then(errorMessage => {
-                        throw new Error(errorMessage);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error("Error al actualizar el estado:", error);
-                console.error("Error al actualizar el estado: " + error.message);
-            });
-    }
-
-</script>
-
 
 </body>
 </html>

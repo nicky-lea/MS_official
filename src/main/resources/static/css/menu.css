@@ -15,7 +15,7 @@ header {
   }
 
   .logo {
-    height: 80px; 
+    height: 80px;
     width: auto;
   }
 
@@ -122,32 +122,91 @@ header {
     margin: 10px 0;
   }
 
-  @media (max-width: 768px) {
-    header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .logo-container {
-      margin-bottom: 15px;
-    }
-}
-@media (max-width: 480px) {
-    header h1 {
-      font-size: 18px;
-    }
-
-    .menu-toggle {
-      font-size: 16px;
-      justify-items: right;
-    }
-    .info_about {
-      font-size: 16px; 
-    }
-
-    .image_about img {
-      max-height: 300px; 
-    }
+@media (max-width: 768px) {
+  header {
+    flex-direction: row; /* Mantenemos los elementos en fila */
+    align-items: center;
+    justify-content: space-between;
   }
+
+  .logo-container {
+    margin-bottom: 0;
+  }
+
+  nav {
+    flex-direction: row; /* Los enlaces estarán en fila */
+    align-items: center;
+    width: auto;
+  }
+
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    background-color: #7939d300;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end; /* Para que queden alineados a la derecha */
+  }
+
+  .menu, .buttons {
+    display: none;
+    flex-direction: row; /* Aseguramos que estén en fila en móvil */
+  }
+
+  .menu.active, .buttons.active {
+    display: flex;
+  }
+
+  .menu li, .buttons li {
+    width: auto;
+  }
+
+  nav a {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .info_about {
+    font-size: 16px;
+  }
+
+  .image_about img {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 18px;
+  }
+
+  .menu-toggle {
+    font-size: 16px;
+  }
+
+  .info_about {
+    font-size: 16px;
+  }
+
+  .image_about img {
+    max-height: 300px;
+  }
+}
   ::-webkit-scrollbar {
     width: 12px; /* Ancho de la barra */
   }

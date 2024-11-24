@@ -18,12 +18,11 @@
             s0.parentNode.insertBefore(s1,s0);
         })();
     </script>
-    <!--End of Tawk.to Script-->
 </head>
 <body>
 <header>
     <div class="logo-container">
-        <img src="../img/logo.png" alt="Logo" class="logo"> <!-- Cambia el nombre del logo -->
+        <img src="../img/logo.png" alt="Logo" class="logo">
     </div>
 </header>
 <main>
@@ -31,7 +30,7 @@
         <h2 th:text="#{login.title}"></h2>
         <form th:action="@{/iniciar}" method="POST" class="form">
             <input type="email" id="email" name="username" placeholder="Email" autocomplete="off" required>
-            <input type="password" id="password" name="password" autocomplete="off" placeholder="Contraseña" required>
+            <input type="password" id="password" name="password" autocomplete="off" th:placeholder="#{login.password}" required>
 
             <button type="submit" class="btn-primary" th:text="#{login.button}"></button>
         </form>

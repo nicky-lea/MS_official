@@ -84,19 +84,60 @@ public class MainController {
             @ApiResponse(responseCode = "400", description = "Error en el registro del usuario.")
     })
     @PostMapping("/register")
-    public String registerUser(@RequestParam("cc") Long userId,
+    public String registerUser(@RequestParam("cc") String userId,
                                @RequestParam("name") String name,
                                @RequestParam("email") String email,
                                @RequestParam("password") String password,
                                @RequestParam("phone") String phone,
-                               @RequestParam("address") String address) {
+                               @RequestParam("address") String address,
+                               Model model) {
         try {
-            userService.registerUser(userId, name, email, password, phone, address);
+            validateCC(userId);
+            validateName(name);
+            validatePassword(password);
+            validatePhone(phone);
+            validateAddress(address);
+
+            userService.registerUser(Long.parseLong(userId), name, email, password, phone, address);
             return "redirect:/iniciar";
-        } catch (Exception e) {
-            return "error";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "/register";
         }
     }
+
+    private void validateCC(String cc) {
+        if (!cc.matches("^\\d+$")) {
+            throw new IllegalArgumentException("error.cc.invalid");
+        }
+    }
+
+    private void validateName(String name) {
+        if (!name.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            throw new IllegalArgumentException("error.name.invalid");
+        }
+    }
+
+    private void validatePassword(String password) {
+        if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+            throw new IllegalArgumentException("error.password.invalid");
+        }
+    }
+
+
+    private void validatePhone(String phone) {
+        if (!phone.matches("^\\d{10}$")) {
+            throw new IllegalArgumentException("error.phone.invalid");
+        }
+    }
+
+    private void validateAddress(String address) {
+        if (!address.matches("^[a-zA-Z0-9\\s#\\-/áéíóúÁÉÍÓÚñÑ,]+$")) {
+            throw new IllegalArgumentException("error.address.invalid");
+        }
+    }
+
+
 
 }
 

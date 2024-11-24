@@ -34,7 +34,7 @@ header {
     padding: 20px;
     border: 1px solid #674188;
     border-radius: 10px;
-    background-color: #E2BFD9 !important; /* Cambia el fondo del formulario */
+    background-color: #E2BFD9 !important;
 }
 
 h2 {
@@ -57,10 +57,10 @@ input, textarea {
     color: #674188;
 }
 
-/* Estilo para el botón de carga del archivo */
+
 input[type="file"]::-webkit-file-upload-button {
-    background-color: #674188; /* Color de fondo del botón de carga */
-    color: #F7EFE5; /* Color del texto del botón */
+    background-color: #674188;
+    color: #F7EFE5;
     border: none;
     border-radius: 5px;
     padding: 10px;
@@ -69,13 +69,13 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 input[type="file"]::-webkit-file-upload-button:hover {
-    background-color: #5a3672; /* Color al pasar el ratón */
+    background-color: #5a3672;
 }
 
-/* Estilo para mostrar el nombre del archivo cargado */
+
 input[type="file"]::file-selector-button {
-    background-color: #674188; /* Color de fondo del botón de carga */
-    color: #F7EFE5; /* Color del texto del botón */
+    background-color: #674188;
+    color: #F7EFE5;
     border: none;
     border-radius: 5px;
     padding: 10px;
@@ -84,7 +84,7 @@ input[type="file"]::file-selector-button {
 }
 
 input[type="file"]::file-selector-button:hover {
-    background-color: #5a3672; /* Color al pasar el ratón */
+    background-color: #5a3672;
 }
 
 .btn-primary {
@@ -103,14 +103,14 @@ input[type="file"]::file-selector-button:hover {
 }
 .button-container {
     background-color: #E2BFD9;
-    display: flex; /* Utiliza flexbox */
-    justify-content: space-between; /* Espacia los botones uniformemente */
-    gap: 10px; /* Espacio entre botones */
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .btn-primary {
-    flex: 1; /* Hace que cada botón ocupe el mismo espacio */
-    margin: 0 5px; /* Añade un margen horizontal entre los botones */
+    flex: 1;
+    margin: 0 5px;
 }
 p{
     background-color: #E2BFD9;
@@ -124,32 +124,30 @@ a {
 }
 
 a:hover {
-    color: #5a3672; /* Color al pasar el ratón */
+    color: #5a3672;
 }
 ::-webkit-scrollbar {
-  width: 12px; /* Ancho de la barra */
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7EFE5; /* Color de fondo de la barra */
+  background: #F7EFE5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #674188; /* Color de la barra de desplazamiento */
-  border-radius: 10px; /* Bordes redondeados */
+  background-color: #674188;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #5a3672; /* Color de la barra de desplazamiento al pasar el ratón */
+  background-color: #5a3672;
 }
 
-/* Para Firefox */
 * {
-  scrollbar-width: thin; /* Estilo del scrollbar */
-  scrollbar-color: #674188 #F7EFE5; /* Color del scrollbar y del track */
+  scrollbar-width: thin;
+  scrollbar-color: #674188 #F7EFE5;
 }
 
-/* Para IE y Edge */
 body {
-  -ms-overflow-style: scrollbar; /* Muestra la barra de desplazamiento */
+  -ms-overflow-style: scrollbar;
 }

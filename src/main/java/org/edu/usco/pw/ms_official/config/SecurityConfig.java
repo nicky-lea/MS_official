@@ -41,7 +41,7 @@ public class SecurityConfig {
                         /**
                          * Permite acceso sin autenticación a estas rutas.
                          */
-                        .requestMatchers("/register", "/", "/iniciar", "/css/**", "/js/**", "/img/**", "/contacto",  "/change-language/**").permitAll()
+                        .requestMatchers("/register", "/", "/iniciar", "/css/**", "/js/**", "/img/**", "/contacto",  "/change-language/**","/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
                         /**
                          * Solo permite acceso a usuarios con rol ADMIN para rutas /admin/**.
                          */
